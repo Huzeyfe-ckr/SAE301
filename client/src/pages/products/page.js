@@ -50,7 +50,7 @@ V.attachEvents = function (pageFragment) {
 
 export function ProductsPage(params) {
   C.init = async function () {
-    if (params.id !== undefined || params.id !== null) {
+    if (params.id) {
       M.products = await ProductData.fetchAllByCategory(params.id);
     } else {
       M.products = await ProductData.fetchAll();
