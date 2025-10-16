@@ -1,11 +1,31 @@
-<article class="overflow-hidden rounded-lg bg-white p-6 shadow-md transition hover:shadow-lg">
-  <span class="mb-2 block text-sm font-medium text-gray-500">ID: {{id}}</span>
-  <h3 class="mb-4 text-xl font-bold text-gray-900">{{name}}</h3>
-  <a href="/products/{{id}}/{{name}}" data-link>Voir le détail</a>
-  <button 
-    data-buy="{{id}}" 
-    class="w-full rounded-lg bg-green-600 px-4 py-2 text-white transition hover:bg-green-700"
+<article class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-lg bg-white p-4 lg:p-8 shadow-md transition w-full hover:shadow-lg ">
+  <a href="/products/{{id}}/{{name}}" data-link class="text-blue-dark  text-sm ">
+    
+  <!-- Image du produit -->
+  <section class="w-full sm:w-1/5 flex justify-center sm:justify-start">
+    <img
+      src="/assets/{{image}}"
+      alt="img_product"
+      class="w-32 sm:w-full rounded-md object-cover xs:w-12"
+    />
+  </section>
+
+  <!-- Infos produit -->
+  <section class="flex-1 text-center sm:text-left">
+    <h3 class="text-xs sm:text-2xl font-semibold text-dark mb-1 ">
+      {{name}}
+    </h3>
+    <p class="text-xs sm:text-sm text-gray mb-2 ">ID : {{id}}</p>
+    
+  </section>
+
+  <!-- Prix + bouton -->
+  <section
+    class="flex flex-col sm:items-end items-center gap-2 mt-4 sm:mt-0"
   >
-    Acheter
-  </button>
+    <h3 class="text-lg sm:text-2xl font-bold text-gray xs:14px">
+      {{price}} €
+    </h3>
+  </section>
+  Voir le détail</a>
 </article>
