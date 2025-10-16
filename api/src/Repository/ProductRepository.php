@@ -40,6 +40,9 @@ class ProductRepository extends EntityRepository {
         $p = new Product($answer->id);
         $p->setName($answer->name);
         $p->setIdcategory($answer->category);
+        $p->setPrice($answer->price);
+        $p->setDescription($answer->description);
+        $p->setImage($answer->image);
         return $p;
     }
 
@@ -53,6 +56,9 @@ class ProductRepository extends EntityRepository {
             $p = new Product($obj->id);
             $p->setName($obj->name);
             $p->setIdcategory($obj->category);
+            $p->setPrice($obj->price);
+            $p->setDescription($obj->description);
+            $p->setImage($obj->image);
             array_push($res, $p);
         }
        
@@ -60,11 +66,17 @@ class ProductRepository extends EntityRepository {
     }
 
     public function save($product){
-        $requete = $this->cnx->prepare("insert into Product (name, category) values (:name, :idcategory)");
+        $requete = $this->cnx->prepare("insert into Product (name, category, price, description, image) values (:name, :idcategory, :price, :description, :image)");
         $name = $product->getName();
         $idcat = $product->getIdcategory();
+        $price = $product->getPrice();
+        $description = $product->getDescription();
+        $image = $product->getImage();
         $requete->bindParam(':name', $name );
         $requete->bindParam(':idcategory', $idcat);
+        $requete->bindParam(':price', $price );
+        $requete->bindParam(':description', $description);
+        $requete->bindParam(':image', $image);
         $answer = $requete->execute(); // an insert query returns true or false. $answer is a boolean.
 
         if ($answer){

@@ -15,6 +15,7 @@ class HttpRequest {
     private ?array $params = null; // éventuels paramètres de la requête (on a bien dit "éventuel")
     private string $json = ""; // données json transmise par le client (seulement en cas de requête en POST, PATCH ou PUT)
     private bool $includeFiles = false;
+    private ?float $price = null;    
     /**
      *  __construct
      * 
@@ -106,5 +107,19 @@ class HttpRequest {
     public function getIncludeFiles(): bool
     {
         return $this->includeFiles;
+    }
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->desc;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
     }
 }
