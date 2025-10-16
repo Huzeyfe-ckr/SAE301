@@ -48,9 +48,9 @@ V.attachEvents = function (pageFragment) {
   return pageFragment;
 };
 
-export function ProductsPage(params) {
+export  function ProductsPage(params) {
   C.init = async function () {
-    if (params.id !== undefined || params.id !== null) {
+    if (params.id ) {
       M.products = await ProductData.fetchAllByCategory(params.id);
     } else {
       M.products = await ProductData.fetchAll();

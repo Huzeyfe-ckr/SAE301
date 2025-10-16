@@ -1,25 +1,46 @@
-<header class="bg-blue-mid text-white p-4">
-  <div class="flex justify-center">
+<header class="bg-[#00328f] text-white p-4">
+  <div class="flex items-center justify-between">
+    <!-- Logo -->
     <a href="/products">
-    
-    <img class="w-40" src="/assets/ldlc.png" alt="Logo">
+      <img class="w-32 sm:w-40" src="/assets/ldlc.png" alt="Logo">
     </a>
 
-    <div class="flex justify-center">
-    <a href="/products" class="text-white font-bold text-lg">Tous les produits</a>
-    <a href="/category/1" class="text-white font-bold text-lg">Composants</a>
-    <a href="/category/2" class="text-white font-bold text-lg">PC Portables</a>
-    <a href="/category/3" class="text-white font-bold text-lg">Nouveautés</a>
+    <!-- Bouton burger -->
+    <button id="menu-btn" class="relative w-8 h-8 flex flex-col justify-between items-center sm:hidden focus:outline-none">
+      <span class="block w-8 h-1 bg-white rounded transition-all duration-300"></span>
+      <span class="block w-8 h-1 bg-white rounded transition-all duration-300"></span>
+      <span class="block w-8 h-1 bg-white rounded transition-all duration-300"></span>
+    </button>
+
+    <!-- Menu desktop -->
+    <nav class="hidden sm:flex gap-6">
+      <a href="/products" class="font-bold text-lg hover:text-blue">Tous les produits</a>
+      <a href="/category/1" class="font-bold text-lg hover:text-blue">Composants</a>
+      <a href="/category/2" class="font-bold text-lg hover:text-blue">PC Portables</a>
+      <a href="/category/3" class="font-bold text-lg hover:text-blue">Nouveautés</a>
+    </nav>
   </div>
-    
-    <!-- <nav class="flex gap-4">
+
+  <!-- Menu mobile -->
+  <nav id="mobile-menu" class="hidden flex-col items-center gap-4 mt-4 sm:hidden transition-all duration-300 ease-in-out">
+    <a href="/products" class="font-semibold text-base hover:text-blue">Tous les produits</a>
+    <a href="/category/1" class="font-semibold text-base hover:text-blue">Composants</a>
+    <a href="/category/2" class="font-semibold text-base hover:text-blue">PC Portables</a>
+    <a href="/category/3" class="font-semibold text-base hover:text-blue">Nouveautés</a>
+  </nav>
+</header>
+
+
+
+
+<!-- <nav class="flex gap-4">
       <a href="/" data-link class="px-4 py-2 rounded transition hover:bg-white/10">Accueil</a>
       <a href="/products" data-link class="px-4 py-2 rounded transition hover:bg-white/10">Composants</a>
       <a href="/products" data-link class="px-4 py-2 rounded transition hover:bg-white/10">PC Portables</a>
       <a href="/about" data-link class="px-4 py-2 rounded transition hover:bg-white/10">Nouveautés</a>
     </nav> -->
 
-    <!-- <ul class="flex gap-4">
+<!-- <ul class="flex gap-4">
       <li class="flex flex-col items-center">
         <img class="w-10" src="assets/place-localizer.png" alt="Magasin">
         <a href="/" data-link class="px-4 py-2 rounded transition hover:bg-white/10">Magasin</a>
@@ -33,5 +54,3 @@
         <a href="/about" data-link class="px-4 py-2 rounded transition hover:bg-white/10">Panier</a>
       </li>
     </ul> -->
-  </div>
-</header>
