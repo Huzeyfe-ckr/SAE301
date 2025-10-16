@@ -1,9 +1,11 @@
-<header class="bg-[#00328f] text-white p-4">
+<header class=" flex flex-col items-center bg-blue-dark text-white pt-4 gap-2.5">
   <div class="flex items-center justify-between">
     <!-- Logo -->
-    <a href="/products">
-      <img class="w-32 sm:w-40" src="/assets/ldlc.png" alt="Logo">
+    <a href="/">
+      <img class="w-12 sm:w-20 p-2" src="/assets/ldlc.png" alt="Logo">
     </a>
+  </div>
+  <div class="flex items-center bg-blue-mid ">
 
     <!-- Bouton burger -->
     <button id="menu-btn" class="relative w-8 h-8 flex flex-col justify-between items-center sm:hidden focus:outline-none">
@@ -13,17 +15,17 @@
     </button>
 
     <!-- Menu desktop -->
-    <nav class="hidden sm:flex gap-6">
-      <a href="/products" class="font-bold text-lg hover:text-blue">Tous les produits</a>
-      <a href="/category/1" class="font-bold text-lg hover:text-blue">Composants</a>
-      <a href="/category/2" class="font-bold text-lg hover:text-blue">PC Portables</a>
-      <a href="/category/3" class="font-bold text-lg hover:text-blue">Nouveautés</a>
+    <nav class="hidden sm:flex gap-6 m-3">
+      <a href="/products" class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">Tous les produits</a>
+      <a href="/category/1" class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">Composants</a>
+      <a href="/category/2" class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">PC Portables</a>
+      <a href="/category/3" class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">Nouveautés</a>
     </nav>
   </div>
 
   <!-- Menu mobile -->
   <nav id="mobile-menu" class="hidden flex-col items-center gap-4 mt-4 sm:hidden transition-all duration-300 ease-in-out">
-    <a href="/products" class="font-semibold text-base hover:text-blue">Tous les produits</a>
+    <a href="/products" class="font-semibold text-base  hover:text-blue">Tous les produits</a>
     <a href="/category/1" class="font-semibold text-base hover:text-blue">Composants</a>
     <a href="/category/2" class="font-semibold text-base hover:text-blue">PC Portables</a>
     <a href="/category/3" class="font-semibold text-base hover:text-blue">Nouveautés</a>
