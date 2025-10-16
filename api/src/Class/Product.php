@@ -18,6 +18,7 @@ class Product extends Entity {
     private ?float $price = null;
     private ?string $description = null;
     private ?string $image = null;
+    private ?string $category = null;
 
     public function __construct(int $id){
         $this->id = $id;
@@ -141,4 +142,5 @@ public function getDescription(): ?string {
 public function getImage(): ?string {
     return $this->image;
 }
+
 }
