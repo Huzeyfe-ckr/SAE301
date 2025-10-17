@@ -33,6 +33,8 @@ V.createPageFragment = function (data) {
   // Créer le fragment depuis le template
   let pageFragment = htmlToFragment(template);
 
+  pageFragment.getElementById("nbrarticle").textContent = `${data.length} PRODUITS CORRESPONDES`;
+
   // Générer les produits
   let productsDOM = ProductView.dom(data);
 

@@ -22,6 +22,7 @@ C.handler_clickOnProduct = function(ev){
     }
 }
 
+
 C.init = async function(params) {
     // Récupérer l'ID depuis les paramètres de route
     const productId = params.id;
@@ -31,6 +32,7 @@ C.init = async function(params) {
     
     let p = M.getProductById(productId);
     console.log("Product loaded:", p);
+
     
     return V.init(p);
 }
@@ -52,8 +54,7 @@ V.createPageFragment = function(data) {
     let detailDOM = DetailView.dom(data);
     
     // Remplacer le slot par le composant detail
-    pageFragment.querySelector('slot[name="detail"]').replaceWith(detailDOM);
-    
+    pageFragment.querySelector('slot[name="detail"]').replaceWith(detailDOM);    
     return pageFragment;
 }
 
