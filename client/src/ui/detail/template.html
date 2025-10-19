@@ -1,36 +1,36 @@
-<article class="flex flex-col justify-center gap-30 sm:flex-row mx-auto w-auto rounded-lg bg-white p-8 shadow-lg">
+<article
+  class="flex flex-col justify-center gap-30 sm:flex-row mx-auto w-auto rounded-lg bg-white p-8 shadow-lg"
+>
   <!-- Image du produit -->
   <figure>
-  <figcaption class="mb-6 flex  items-center justify-center rounded-lg bg-white overflow-hidden">
-    <img src="/assets/{{image}}" alt="{{name}}" class="w-80 object-contain" />
-  </figcaption>
+    <figcaption
+      class="mb-6 flex items-center justify-center rounded-lg bg-white overflow-hidden"
+    >
+      <img src="/assets/{{image}}" alt="{{name}}" class="w-80 object-contain" />
+    </figcaption>
 
-  <figcaption class="mb-6 flex flex-row items-center justify-center gap-2 rounded-lg overflow-hidden">
-    <a href="/">
-       <img src="/assets/{{image}}" alt="{{name}}" class="w-12 object-contain" />
-    </a>
-    <a href="/">
-       <img src="/assets/{{image}}" alt="{{name}}" class="w-12 object-contain" />
-    </a>
-    
-
-    
-  </figcaption>
+    <figcaption
+      class="mb-6 flex flex-row items-center justify-center gap-2 rounded-lg overflow-hidden"
+    >
+      
+    </figcaption>
   </figure>
 
   <figure>
-  <div class="mb-2 text-sm font-medium text-gray-500">ID: {{id}}</div>
-  <h1 class="mb-4 text-3xl font-bold text-gray-900">{{name}}</h1>
-  <p class="mb-6 text-lg text-gray-700">{{description}}</p>
+    <div class="mb-2 text-sm font-medium text-gray-500">ID: {{id}}</div>
+    <h1 class="mb-4 text-3xl font-bold text-gray-900">{{name}}</h1>
+    <p class="mb-6 text-lg text-gray-700">{{description}}</p>
 
-  <div class="mb-4">
-    <span class="text-4xl font-bold text-blue-dark">{{price}} €</span>
-  </div>
+    <div class="mb-4">
+      <span class="text-4xl font-bold text-blue-dark">{{price}} €</span>
+    </div>
 
-  <button data-buy="{{id}}" class=" flex items-center rounded-lg bg-yellow px-6 py-3 text-lg font-semibold text-white transition hover:bg-blue-mid">
-    <img class="w-10" src="/assets/sac-de-courses.png">
-    Ajouter au panier
-  </button>
-
+    <button
+      data-buy="{{id}}"
+      class="flex items-center rounded-lg bg-yellow px-6 py-3 text-lg font-semibold text-white transition hover:bg-blue-mid"
+    >
+      <img class="w-10" src="/assets/sac-de-courses.png" />
+      Ajouter au panier
+    </button>
   </figure>
 </article>
