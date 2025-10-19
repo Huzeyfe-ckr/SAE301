@@ -42,9 +42,27 @@ class ProductRepository extends EntityRepository {
         $p->setIdcategory($answer->category);
         $p->setPrice($answer->price);
         $p->setDescription($answer->description);
-        $p->setImage($answer->image);
+
+
+        $requeteimages = $this->cnx->prepare("SELECT url FROM ProductImage WHERE id_product = :id_product");
+        $requeteimages->bindParam(':id_product', $answer->id); // fait le lien entre le "tag" :value et la valeur de $id
+        $requeteimages->execute(); // execute la requête
+        $answerimages = $requeteimages->fetchAll(PDO::FETCH_OBJ); 
+        $tabimages = [];
+
+        foreach($answerimages as $image){
+            $tabimages[] = $image->url;
+        }
+
+        $p->setImages($tabimages);
+
         return $p;
     }
+
+
+
+
+
 
     public function findAll(): array {
         $requete = $this->cnx->prepare("select * from Product");
@@ -58,7 +76,21 @@ class ProductRepository extends EntityRepository {
             $p->setIdcategory($obj->category);
             $p->setPrice($obj->price);
             $p->setDescription($obj->description);
-            $p->setImage($obj->image);
+
+
+
+
+        $requeteimages = $this->cnx->prepare("SELECT url FROM ProductImage WHERE id_product = :id_product");
+        $requeteimages->bindParam(':id_product', $obj->id); // fait le lien entre le "tag" :value et la valeur de $id
+        $requeteimages->execute(); // execute la requête
+        $answerimages = $requeteimages->fetchAll(PDO::FETCH_OBJ); 
+        $tabimages = [];
+
+         foreach($answerimages as $image){
+            $tabimages[] = $image->url;
+        }
+
+        $p->setImages($tabimages);
             array_push($res, $p);
         }
        
@@ -78,12 +110,26 @@ class ProductRepository extends EntityRepository {
         $p->setIdcategory($obj->category);
         $p->setPrice($obj->price);
         $p->setDescription($obj->description);
-        $p->setImage($obj->image);
+
+
+        $requeteimages = $this->cnx->prepare("SELECT url FROM ProductImage WHERE id_product = :id_product");
+        $requeteimages->bindParam(':id_product', $obj->id); // fait le lien entre le "tag" :value et la valeur de $id
+        $requeteimages->execute(); // execute la requête
+        $answerimages = $requeteimages->fetchAll(PDO::FETCH_OBJ); 
+        $tabimages = [];
+
+        foreach($answerimages as $image){
+            $tabimages[] = $image->url;
+        }
+
+        $p->setImages($tabimages);
         array_push($res, $p);
     }
-
     return $res;
 }
+
+    
+
 
     public function save($product){
         $requete = $this->cnx->prepare("insert into Product (name, category, price, description, image) values (:name, :idcategory, :price, :description, :image)");
@@ -91,12 +137,12 @@ class ProductRepository extends EntityRepository {
         $idcat = $product->getIdcategory();
         $price = $product->getPrice();
         $description = $product->getDescription();
-        $image = $product->getImage();
+        $images = $product->getImages();
         $requete->bindParam(':name', $name );
         $requete->bindParam(':idcategory', $idcat);
         $requete->bindParam(':price', $price );
         $requete->bindParam(':description', $description);
-        $requete->bindParam(':image', $image);
+        $requete->bindParam(':images', $images);
         $answer = $requete->execute(); // an insert query returns true or false. $answer is a boolean.
 
         if ($answer){
