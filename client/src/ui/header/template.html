@@ -1,36 +1,55 @@
-<header class=" flex flex-col items-center bg-blue-dark text-white pt-4 gap-2.5">
-  <div class="flex items-center justify-between">
+<header class="flex flex-col  bg-blue-dark text-white pt-4 gap-2.5 w-full sm:items-center">
+  <div class="flex flex-row-reverse gap-16   justify-between  px-4">
     <!-- Logo -->
     <a href="/">
-      <img class="w-12 sm:w-20 p-2" src="/assets/ldlc.png" alt="Logo">
+      <img class="w-20 sm:w-20 p-2" src="/assets/ldlc.png" alt="Logo">
     </a>
-  </div>
-  <div class="flex items-center bg-blue-mid ">
 
     <!-- Bouton burger -->
-    <button id="menu-btn" class="relative w-8 h-8 flex flex-col justify-between items-center sm:hidden focus:outline-none">
-      <span class="block w-8 h-1 bg-white rounded transition-all duration-300"></span>
-      <span class="block w-8 h-1 bg-white rounded transition-all duration-300"></span>
-      <span class="block w-8 h-1 bg-white rounded transition-all duration-300"></span>
+    <button
+      id="menu-btn"
+      class="relative w-8 h-8 flex flex-col justify-between items-center sm:hidden focus:outline-none"
+      aria-label="Menu"
+    >
+      <span class="line1 block w-8 h-1 bg-white rounded transition-transform duration-300 origin-center"></span>
+      <span class="line2 block w-8 h-1 bg-white rounded transition-opacity duration-300"></span>
+      <span class="line3 block w-8 h-1 bg-white rounded transition-transform duration-300 origin-center"></span>
     </button>
+  </div>
 
-    <!-- Menu desktop -->
-    <nav class="hidden sm:flex gap-6 m-3">
-      <a href="/products" data-link class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">Tous les produits</a>
-      <a href="/category/1" data-link class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">Composants</a>
-      <a href="/category/2" data-link class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">PC Portables</a>
-      <a href="/category/3" data-link class="font-bold text-lg hover:bg-blue p-1 pr-5 border-r-1 border-white">Nouveautés</a>
-    </nav>
+  <!-- Menu desktop -->
+  <div class="flex items-center bg-blue-mid w-full justify-center">
+    <ul class="hidden sm:flex gap-6 m-3">
+      <li class="flex flex-row gap-3  hover:bg-blue p-1 pr-5 border-r border-white" >
+        <a href="/products" data-link class="font-bold text-lg ">Tous les produits</a>
+      </li>
+      <li class="flex flex-row gap-3 hover:bg-blue p-1 pr-5 border-r border-white">
+        <img src="/assets/wrench.svg" alt="|" class="w-5 "/>
+        <a href="/category/1" data-link class="font-bold text-lg ">Composants</a>
+      </li>
+      <li class="flex flex-row gap-3 hover:bg-blue p-1 pr-5 border-r border-white">
+        <img src="/assets/monitor.svg" alt="|" class="w-5"/>
+        <a href="/category/2" data-link class="font-bold text-lg ">PC Portables</a>
+      </li>
+      <li class="flex flex-row gap-3 hover:bg-blue p-1 pr-5 border-r border-white">
+        <img src="/assets/party-horn.svg" alt="|" class="w-5"/>
+        <a href="/category/3" data-link class="font-bold text-lg ">Nouveautés</a>
+      </li>
+
+      
+      
+    </ul>
   </div>
 
   <!-- Menu mobile -->
-  <nav id="mobile-menu" class="hidden flex-row items-center gap-4 mt-4 sm:hidden transition-all duration-300 ease-in-out">
-    <a href="/products" data-link class="font-semibold text-base  hover:text-blue">Tous les produits</a>
+  <nav id="mobile-menu" class="flex  flex-col items-baseline  text-blue-mid  bg-white gap-4 p-4 sm:hidden transition-all duration-300 ease-in-out">
+    <a href="/products" data-link class="font-semibold text-base hover:text-blue">Tous les produits</a>
     <a href="/category/1" data-link class="font-semibold text-base hover:text-blue">Composants</a>
-    <a href="/category/2"  data-link class="font-semibold text-base hover:text-blue">PC Portables</a>
+    <a href="/category/2" data-link class="font-semibold text-base hover:text-blue">PC Portables</a>
     <a href="/category/3" data-link class="font-semibold text-base hover:text-blue">Nouveautés</a>
   </nav>
 </header>
+
 
 
 
