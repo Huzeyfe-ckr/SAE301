@@ -1,17 +1,29 @@
 import { genericRenderer, htmlToFragment } from "../../lib/utils.js";
 import template from "./template.html?raw";
+import renderImageGalerie from "../../ui/imagegalerie/index.js";
 
 let DetailView = {
   html: function (data) {
     let image = data.images[0];
-    // template = template.replace("{{image}}", image);
-    // console.log(image);
-    // console.log(template);
-    return genericRenderer(template, data);
+    let htmlContent = template;
+    htmlContent = htmlContent.replace("{{image}}", image);
+    return genericRenderer(htmlContent, data);
   },
 
   dom: function (data) {
-    return htmlToFragment(DetailView.html(data));
+    let fragment = htmlToFragment(DetailView.html(data));
+    
+    // Créer la galerie d'images
+    if (data.images && data.images.length > 0) {
+      const galerieDOM = renderImageGalerie({ images: data.images });
+      // Remplacer le slot par la galerie
+      const slot = fragment.querySelector('slot[name="image-galerie"]');
+      if (slot) {
+        slot.replaceWith(galerieDOM);
+      }
+    }
+    
+    return fragment;
   }
 };
 

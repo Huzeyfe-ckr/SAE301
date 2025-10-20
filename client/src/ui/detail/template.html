@@ -3,16 +3,10 @@
 >
   <!-- Image du produit -->
   <figure>
-    <figcaption
-      class="mb-6 flex items-center justify-center rounded-lg bg-white overflow-hidden"
-    >
-      <img src="/assets/{{image}}" alt="{{name}}" class="w-80 object-contain" />
-    </figcaption>
+    
 
-    <figcaption
-      class="mb-6 flex flex-row items-center justify-center gap-2 rounded-lg overflow-hidden"
-    >
-      
+    <figcaption>
+    <slot name="image-galerie"></slot>
     </figcaption>
   </figure>
 
