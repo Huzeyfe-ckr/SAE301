@@ -13,6 +13,7 @@
   --color-purple: var(--clr-purple);
   --color-red: var(--clr-red);
   --color-white: var(--clr-white);
+  --color-green: var(--clr-green);
 
   --font-grotesk: "Space Grotesk", sans-serif;
 }
@@ -33,6 +34,7 @@
     --clr-yellow: oklch(76.045% 0.15556 92.496);
     --clr-red: oklch(45.8% 0.236 28.9);
     --clr-blue-pale: oklch(91.8% 0.038 216.1);
+    --clr-green: oklch(36.719% 0.10456 147.881);
     --clr-fb-blue: oklch(42.5% 0.105 268.8);
 
     --mon-image: url("/image-profile-mobile.webp");
