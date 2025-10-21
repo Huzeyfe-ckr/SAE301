@@ -5,7 +5,7 @@ ini_set("display_errors", "1");
 require_once "src/Controller/ProductController.php";
 require_once "src/Controller/UserController.php";
 require_once "src/Class/HttpRequest.php";
-
+require_once "src/Controller/AuthController.php";
 
 
 /** IMPORTANT
@@ -32,6 +32,7 @@ require_once "src/Class/HttpRequest.php";
 $router = [
     "products" => new ProductController(),
     "users" => new UserController(),
+    "auth" => new AuthController(),
     
 ];
 
