@@ -1,63 +1,161 @@
-<header class="flex flex-col  bg-blue-dark text-white text-center pt-4 gap-2.5 w-full sm:items-center">
-  <div class="flex flex-row-reverse gap-16   justify-between  px-4">
+<header
+  class="bg-blue-dark flex w-full flex-col gap-2.5 pt-4 text-center text-white sm:items-center"
+>
+  <div class="flex flex-row-reverse justify-between gap-16 px-4">
     <!-- Logo -->
-     <a class="flex flex-col items-center " href="/compte" data-link>
-      <img class="w-8" src="/assets/profile.svg" alt="Profil">
-      <p class="text-[12px] font-bold text-gray">COMPTE
-      </p>
+    <a class="flex flex-col items-center" href="/compte" data-link>
+      <img class="w-8" src="/assets/profile.svg" alt="Profil" />
+      <p class="text-gray text-[12px] font-bold">COMPTE</p>
     </a>
     <a href="/">
-      <img class="w-20 sm:w-20 p-2" src="/assets/ldlc.png" alt="Logo">
+      <img class="w-20 p-2 sm:w-20" src="/assets/ldlc.png" alt="Logo" />
     </a>
 
-    
-    
-    
+    <!-- /*****************Menu burger prof******************/ -->
 
-    <!-- Bouton burger -->
-    <button
-      id="menu-btn"
-      class="relative w-8 h-8 flex flex-col justify-between items-center sm:hidden focus:outline-none"
-      aria-label="Menu"
-    >
-      <span class="line1 block w-8 h-1 bg-white rounded transition-transform duration-300 origin-center"></span>
-      <span class="line2 block w-8 h-1 bg-white rounded transition-opacity duration-300"></span>
-      <span class="line3 block w-8 h-1 bg-white rounded transition-transform duration-300 origin-center"></span>
-    </button>
+    <div class="group h-10 w-10 active " id="menu-btn">
+
+        <div class="flex flex-col justify-between gap-2 cursor-pointer sm:hidden" >
+          <span
+            class="block h-2 w-full bg-white group-[.active]:translate-y-4 group-[.active]:rotate-45"
+          ></span>
+          <span
+            class="block h-2 w-full bg-white group-[.active]:opacity-0"
+          ></span>
+          <span
+            class="block h-2 w-full bg-white group-[.active]:-translate-y-4 group-[.active]:-rotate-45"
+          ></span>
+        </div>
+    </div>
+
+    <!-- <div  id="menu-btn" class="bg-gray-400 flex items-center justify-center min-h-screen"> -->
+    <!--    
+   <div class="relative" id="menu-btn"> -->
+    <!-- Input invisible -->
+    <!-- <input type="checkbox" id="burger" class="peer hidden" /> -->
+
+    <!-- Label cliquable -->
+    <!-- <label
+    for="burger"
+    class="flex h-11 w-11 cursor-pointer flex-col justify-between"
+  >
+    <span
+      class="block h-1 w-full bg-white transition-transform duration-300 peer-checked:translate-y-2 peer-checked:rotate-45"
+    ></span>
+    <span
+      class="block h-1 w-full bg-white transition-opacity duration-300 peer-checked:opacity-0"
+    ></span>
+    <span
+      class="block h-1 w-full bg-white transition-transform duration-300 peer-checked:-translate-y-2 peer-checked:-rotate-45"
+    ></span>
+  </label> -->
+    <!-- </div> -->
+
+    <!-- /*****************FIN Menu burger prof******************/ -->
+
+
+   
   </div>
 
   <!-- Menu desktop -->
-  <div class="flex items-center bg-blue-mid w-full justify-center">
-    <ul class="hidden sm:flex gap-6 m-3">
-      <li class="flex flex-row gap-3  hover:bg-blue p-1 pr-5 border-r border-white" >
-        <a href="/products" data-link class="font-bold text-lg ">Tous les produits</a>
+  <div class="bg-blue-mid flex w-full items-center justify-center">
+    <ul class="m-3 hidden gap-6 sm:flex">
+      <li
+        class="hover:bg-blue flex flex-row gap-3 border-r border-white p-1 pr-5"
+      >
+        <a href="/products" data-link class="text-lg font-bold"
+          >Tous les produits</a
+        >
       </li>
-      <li class="flex flex-row gap-3 hover:bg-blue p-1 pr-5 border-r border-white">
-        <img src="/assets/wrench.svg" alt="|" class="w-5 "/>
-        <a href="/category/1" data-link class="font-bold text-lg ">Composants</a>
+      <li
+        class="hover:bg-blue flex flex-row gap-3 border-r border-white p-1 pr-5"
+      >
+        <img src="/assets/wrench.svg" alt="|" class="w-5" />
+        <a href="/category/1" data-link class="text-lg font-bold">Composants</a>
       </li>
-      <li class="flex flex-row gap-3 hover:bg-blue p-1 pr-5 border-r border-white">
-        <img src="/assets/monitor.svg" alt="|" class="w-5"/>
-        <a href="/category/2" data-link class="font-bold text-lg ">PC Portables</a>
+      <li
+        class="hover:bg-blue flex flex-row gap-3 border-r border-white p-1 pr-5"
+      >
+        <img src="/assets/monitor.svg" alt="|" class="w-5" />
+        <a href="/category/2" data-link class="text-lg font-bold"
+          >PC Portables</a
+        >
       </li>
-      <li class="flex flex-row gap-3 hover:bg-blue p-1 pr-5 border-r border-white">
-        <img src="/assets/party-horn.svg" alt="|" class="w-5"/>
-        <a href="/category/3" data-link class="font-bold text-lg ">Nouveautés</a>
+      <li
+        class="hover:bg-blue flex flex-row gap-3 border-r border-white p-1 pr-5"
+      >
+        <img src="/assets/party-horn.svg" alt="|" class="w-5" />
+        <a href="/category/3" data-link class="text-lg font-bold">Nouveautés</a>
       </li>
-
-      
-      
     </ul>
   </div>
 
   <!-- Menu mobile -->
-  <nav id="mobile-menu" class="flex  flex-col items-baseline  text-blue-mid  bg-white gap-4 p-4 sm:hidden transition-all duration-300 ease-in-out">
-    <a href="/products" data-link class="font-semibold text-base hover:text-blue">Tous les produits</a>
-    <a href="/category/1" data-link class="font-semibold text-base hover:text-blue">Composants</a>
-    <a href="/category/2" data-link class="font-semibold text-base hover:text-blue">PC Portables</a>
-    <a href="/category/3" data-link class="font-semibold text-base hover:text-blue">Nouveautés</a>
+  <nav
+    id="mobile-menu"
+    class="text-blue-mid flex flex-col items-baseline gap-4 bg-white p-4 transition-all duration-300 ease-in-out sm:hidden"
+  >
+    <a
+      href="/products"
+      data-link
+      class="hover:text-blue text-base font-semibold"
+      >Tous les produits</a
+    >
+    <a
+      href="/category/1"
+      data-link
+      class="hover:text-blue text-base font-semibold"
+      >Composants</a
+    >
+    <a
+      href="/category/2"
+      data-link
+      class="hover:text-blue text-base font-semibold"
+      >PC Portables</a
+    >
+    <a
+      href="/category/3"
+      data-link
+      class="hover:text-blue text-base font-semibold"
+      >Nouveautés</a
+    >
   </nav>
 </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

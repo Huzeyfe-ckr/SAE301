@@ -65,8 +65,7 @@ let postRequest = async function(uri, data){
             Content_Type: 'multipart/form-data' // type de données envoyées (nécessaire si upload fichier)
         },
         body: data
-    }
-
+    };
     try{
         var response = await fetch(API_URL+uri, options); // exécution (asynchrone) de la requête et attente de la réponse
     }

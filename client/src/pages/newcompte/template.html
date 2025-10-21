@@ -1,72 +1,96 @@
 <section class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-semibold mb-4">Créer un compte</h2>
 
-  <!-- Vos Identifiants -->
-  <div class="mb-6">
-    <h3 class="text-lg font-medium mb-2">Vos Identifiants</h3>
-    <label class="block mb-2 text-sm font-medium text-gray-700">Email</label>
-    <input type="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="exemple@domaine.com">
-
-    <label class="block mt-4 mb-2 text-sm font-medium text-gray-700">Mot de passe</label>
-    <div class="relative">
-      <input type="password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
-      <span class="absolute inset-y-0 right-3 flex items-center text-gray-400 cursor-pointer">👁️</span>
-    </div>
+  <div class="flex justify-center mb-6">
+    <h2 class="text-2xl font-bold mb-4">CRÉER UN COMPTE</h2>
   </div>
 
-  <!-- Vos Informations Personnelles -->
-  <div class="mb-6">
-    <h3 class="text-lg font-medium mb-2">Vos Informations Personnelles</h3>
+  <form id="register-form">
+    <!-- Vos Identifiants -->
+    <div class="flex justify-center flex-col mb-6">
+      <h3 class="text-lg font-medium mb-2">Vos Identifiants</h3>
+      <label for="email" class="block mb-2 text-sm font-medium text-gray">Email*</label>
+      <input type="email" name="email" required
+             class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:to-blue-dark" 
+             placeholder="exemple@domaine.com">
 
-    <!-- Civilité -->
-    <div class="flex items-center gap-4 mb-4">
-      <label class="flex items-center gap-1">
-        <input type="radio" name="gender" value="M" class="accent-blue-600">
-        <span>M.</span>
-      </label>
-      <label class="flex items-center gap-1">
-        <input type="radio" name="gender" value="Mme" class="accent-blue-600">
-        <span>Mme</span>
-      </label>
-    </div>
-
-    <!-- Prénom et Nom -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <label class="block mb-2 text-sm font-medium text-gray-700">Prénom</label>
-        <input type="text" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <label class="block mt-4 mb-2 text-sm font-medium text-gray">Mot de passe*</label>
+      <div class="relative">
+        <input type="password" name="password" required
+               class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:to-blue-dark" 
+               placeholder="••••••••" 
+               pattern="(?=.*[0-9])(?=.*[A-Za-z]).{8,}"
+               title="Au moins 8 caractères, avec des lettres et des chiffres">
       </div>
-      <div>
-        <label class="block mb-2 text-sm font-medium text-gray-700">Nom de famille</label>
-        <input type="text" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <small class="text-gray text-xs mt-1">Au moins 8 caractères, avec des lettres et des chiffres</small>
+    </div>
+
+    <!-- Vos Informations Personnelles -->
+    <div class="mb-6">
+      <h3 class="text-lg font-medium mb-2">Vos Informations Personnelles</h3>
+
+      <!-- Civilité -->
+      <div class="flex items-center gap-4 mb-4">
+        <label class="flex items-center gap-1">
+          <input type="radio" name="gender" value="M" class="blue-mid">
+          <span>M.</span>
+        </label>
+        <label class="flex items-center gap-1">
+          <input type="radio" name="gender" value="Mme" class="blue-mid">
+          <span>Mme</span>
+        </label>
       </div>
-    </div>
 
-    <!-- Localisation -->
-    <div class="mt-4">
-      <label class="block mb-2 text-sm font-medium text-gray-700">Pays</label>
-      <select class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option>France (métropolitaine)</option>
-        <!-- Autres options si nécessaire -->
-      </select>
-    </div>
+      <!-- Prénom et Nom -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray">Prénom*</label>
+          <input type="text" name="prenom" required
+                 class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:to-blue-dark">
+        </div>
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray">Nom de famille*</label>
+          <input type="text" name="nom" required
+                 class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:to-blue-dark">
+        </div>
+      </div>
 
-    <!-- Anniversaire -->
-    <div class="mt-4">
-      <label class="block mb-2 text-sm font-medium text-gray-700">Votre anniversaire (facultatif)</label>
-      <input type="date" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-    </div>
+      <!-- Localisation -->
+      <!-- <div class="mt-4">
+        <label class="block mb-2 text-sm font-medium text-gray">Pays*</label>
+        <select name="pays" required
+                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:to-blue-dark">
+          <option value="France">France (métropolitaine)</option>
+          <option value="Turquie">Turquie</option>
+          <option value="Belgique">Belgique</option>
+          <option value="Suisse">Suisse</option>
+        </select>
+      </div> -->
 
-    <!-- Checkbox promo -->
-    <div class="mt-4 flex items-center">
-      <input type="checkbox" id="promo" class="accent-blue-600">
-      <label for="promo" class="ml-2 text-sm text-gray-700">J'accepte de recevoir des informations et des offres promotionnelles exclusives de la part de LDLC.com.</label>
-    </div>
-  </div>
+      <!-- Anniversaire -->
+      <!-- <div class="mt-4">
+        <label class="block mb-2 text-sm font-medium text-gray">Date de naissance (facultatif)</label>
+        <input type="date" name="date_naissance"
+               class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:to-blue-dark">
+      </div> -->
 
-  <!-- Bouton Valider -->
-  <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">VALIDER</button>
+      <!-- Checkbox promo -->
+      <!-- <div class="mt-4 flex items-center">
+        <input type="checkbox" id="promo" name="promo" class="blue-mid">
+        <label for="promo" class="ml-2 text-sm text-gray">
+          J'accepte de recevoir des informations et des offres promotionnelles exclusives de la part de LDLC.com.
+        </label>
+      </div>
+    </div> -->
 
-  <!-- Note de confidentialité -->
-  <p class="mt-4 text-xs text-gray-500 text-center">LDLC.com s'engage à garder ces informations strictement confidentielles.</p>
+    <!-- Bouton Valider -->
+    <button type="submit" 
+            class="w-full bg-blue-mid text-white py-2 px-4 rounded-md hover:bg-blue-dark transition cursor-pointer">
+      VALIDER
+    </button>
+
+    <!-- Note de confidentialité -->
+    <p class="mt-4 text-xs text-gray text-center">
+      LDLC.com s'engage à garder ces informations strictement confidentielles.
+    </p>
+  </form>
 </section>

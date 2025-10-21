@@ -16,6 +16,7 @@ let HeaderView = {
     if (menuBtn && mobileMenu) {
       menuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
+        menuBtn.classList.toggle('active');
       });
     }
 
