@@ -1,35 +1,51 @@
-// Correction du code de la galerie
-export default function renderImageGalerie({ images }) {
-    console.log("[renderImageGalerie] images reçues :", images);
+import { genericRenderer, htmlToFragment } from "../../lib/utils.js";
+import template from "./template.html?raw";
 
-    const container = document.createElement('div');
-    container.className = "max-w-xl mx-auto";
-
-    const gallery = document.createElement('div');
-    gallery.className = "flex space-x-2 mt-4";
-
-    // Image principale (première image)
-    const mainImageContainer = document.createElement('div');
-    const mainImage = document.createElement('img');
-    mainImage.src = `/assets/${images[0]}`;
-    mainImage.className = "w-full h-64 object-cover rounded mb-4";
-    mainImageContainer.appendChild(mainImage);
-    container.appendChild(mainImageContainer);
-
-    // Miniatures
-    images.forEach((img, idx) => {
-        const thumb = document.createElement('img');
-        thumb.src = `/assets/${img}`; // img est déjà l'URL
-        thumb.alt = `Miniature ${idx + 1}`;
-        thumb.className = "w-16 h-16 object-cover rounded cursor-pointer border-2 border-transparent hover:border-blue-500";
-        thumb.onclick = () => {
-            mainImage.src = `/assets/${img}`;
-            gallery.querySelectorAll('img').forEach(i => i.classList.remove('border-blue-500'));
-            thumb.classList.add('border-blue-500');
+let ImageGaleryView = {
+    html: function (data) {
+        const templateData = {
+            mainImage: data.images && data.images.length > 0 ? data.images[0] : ''
         };
-        gallery.appendChild(thumb);
-    });
+        
+        return genericRenderer(template, templateData);
+    },
+    
+    dom: function (data) {
+        let fragment = htmlToFragment(ImageGaleryView.html(data));
+        
+        // Récupérer le conteneur des miniatures
+        const thumbnailsContainer = fragment.querySelector('#thumbnails-container');
+        const mainImage = fragment.querySelector('#main-image');
+        
+        // Créer les miniatures
+        if (data.images && data.images.length > 0) {
+            data.images.forEach((img, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = `/assets/${img}`;
+                thumb.alt = `Miniature ${index + 1}`;
+                
+                // Gérer le clic sur la miniature
+                thumb.onclick = () => {
+                    mainImage.src = `/assets/${img}`;
+                    // Retirer la classe active de toutes les miniatures
+                    thumbnailsContainer.querySelectorAll('img').forEach(t => 
+                        t.classList.remove('active')
+                    );
+                    // Ajouter la classe active à la miniature cliquée
+                    thumb.classList.add('active');
+                };
+                
+                // Ajouter la classe active à la première miniature
+                if (index === 0) {
+                    thumb.classList.add('active');
+                }
+                
+                thumbnailsContainer.appendChild(thumb);
+            });
+        }
+        
+        return fragment;
+    }
+};
 
-    container.appendChild(gallery);
-    return container;
-}
+export default ImageGaleryView;

@@ -70,27 +70,39 @@ class ProductRepository extends EntityRepository {
         $answer = $requete->fetchAll(PDO::FETCH_OBJ);
 
         $res = [];
+        // Parcourt chaque objet retourné par la requête SQL
         foreach($answer as $obj){
+            // Crée une nouvelle instance de Product avec l'id du produit
             $p = new Product($obj->id);
+            // Définit le nom du produit
             $p->setName($obj->name);
+            // Définit la catégorie du produit
             $p->setIdcategory($obj->category);
+            // Définit le prix du produit
             $p->setPrice($obj->price);
+            // Définit la description du produit
             $p->setDescription($obj->description);
 
+            // Prépare une requête pour récupérer les images associées au produit
+            $requeteimages = $this->cnx->prepare("SELECT url FROM ProductImage WHERE id_product = :id_product");
+            // Lie l'id du produit au paramètre de la requête
+            $requeteimages->bindParam(':id_product', $obj->id);
+            // Exécute la requête
+            $requeteimages->execute();
+            // Récupère toutes les images sous forme d'objets
+            $answerimages = $requeteimages->fetchAll(PDO::FETCH_OBJ); 
+            // Initialise un tableau pour stocker les URLs des images
+            $tabimages = [];
 
+            // Parcourt chaque image et ajoute son URL au tableau
+            foreach($answerimages as $image){
+                $tabimages[] = $image->url;
+            }
 
+            // Ajoute le tableau d'images à l'objet Product
+            $p->setImages($tabimages);
 
-        $requeteimages = $this->cnx->prepare("SELECT url FROM ProductImage WHERE id_product = :id_product");
-        $requeteimages->bindParam(':id_product', $obj->id); // fait le lien entre le "tag" :value et la valeur de $id
-        $requeteimages->execute(); // execute la requête
-        $answerimages = $requeteimages->fetchAll(PDO::FETCH_OBJ); 
-        $tabimages = [];
-
-         foreach($answerimages as $image){
-            $tabimages[] = $image->url;
-        }
-
-        $p->setImages($tabimages);
+            // Ajoute l'objet Product au tableau de résultats
             array_push($res, $p);
         }
        
