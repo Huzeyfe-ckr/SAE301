@@ -1,6 +1,6 @@
 import { genericRenderer, htmlToFragment } from "../../lib/utils.js";
 import template from "./template.html?raw";
-import renderImageGalerie from "../../ui/imagegalerie/index.js";
+import ImageGaleryView from "../../ui/imagegalerie/index.js";
 
 let DetailView = {
   html: function (data) {
@@ -15,7 +15,7 @@ let DetailView = {
     
     // Créer la galerie d'images
     if (data.images && data.images.length > 0) {
-      const galerieDOM = renderImageGalerie({ images: data.images });
+      const galerieDOM = ImageGaleryView.dom(data);
       // Remplacer le slot par la galerie
       const slot = fragment.querySelector('slot[name="image-galerie"]');
       if (slot) {
