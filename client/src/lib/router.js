@@ -151,59 +151,56 @@ class Router {
     }
   }
   
-  // Rendre le contenu dans le root ou via un layout
-  renderContent(content, route, path) {
-    const isFragment = content instanceof DocumentFragment;
-    
-    // Appliquer le layout seulement si useLayout est true
-    if (route.useLayout) {
-      const layoutFn = this.findLayout(path);
-      if (layoutFn) {
-        // Le layout retourne un DocumentFragment
-        const layoutFragment = layoutFn();
+ // Dans la méthode renderContent
+renderContent(content, route, path) {
+    if (route.useLayout !== false) {
+      const layout = this.findLayout(path);
+      if (layout) {
+        const layoutContent = layout();
         
-        // Chercher l'élément <slot> dans le layout
-        const contentSlot = layoutFragment.querySelector('slot');
+        // ✅ Gérer le cas où le layout est asynchrone (retourne une Promise)
+        if (layoutContent instanceof Promise) {
+          layoutContent.then(layoutDOM => {
+            const slot = layoutDOM.querySelector('slot:not([name])');
+            if (slot) {
+              if (typeof content === 'string') {
+                slot.innerHTML = content;
+              } else {
+                slot.replaceWith(content);
+              }
+            }
+            this.root.innerHTML = '';
+            this.root.appendChild(layoutDOM);
+            this.attachEventListeners(path);
+          });
+          return; // ✅ Sortir ici pour éviter l'exécution du code synchrone
+        }
         
-        if (contentSlot) {
-          // Insérer le contenu de la page dans le slot
-          if (isFragment) {
-            contentSlot.replaceWith(content);
+        // Cas synchrone (code existant)
+        const slot = layoutContent.querySelector('slot:not([name])');
+        if (slot) {
+          if (typeof content === 'string') {
+            slot.innerHTML = content;
           } else {
-            // Créer un fragment temporaire pour le HTML string
-            const tempFragment = document.createElement('template');
-            tempFragment.innerHTML = content;
-            contentSlot.replaceWith(tempFragment.content);
+            slot.replaceWith(content);
           }
-        } else {
-          console.warn('Layout does not contain a <slot> element. Content will not be inserted.');
         }
-        
-        // Insérer le layout complet dans this.root
         this.root.innerHTML = '';
-        this.root.appendChild(layoutFragment);
-      } else {
-        // Pas de layout trouvé, afficher directement
-        if (isFragment) {
-          this.root.innerHTML = '';
-          this.root.appendChild(content);
-        } else {
-          this.root.innerHTML = content;
-        }
-      }
-    } else {
-      // Pas de layout, afficher directement
-      if (isFragment) {
-        this.root.innerHTML = '';
-        this.root.appendChild(content);
-      } else {
-        this.root.innerHTML = content;
+        this.root.appendChild(layoutContent);
+        this.attachEventListeners(path);
+        return;
       }
     }
     
-    // Attacher les event listeners après le rendu
+    // Pas de layout
+    this.root.innerHTML = '';
+    if (typeof content === 'string') {
+      this.root.innerHTML = content;
+    } else {
+      this.root.appendChild(content);
+    }
     this.attachEventListeners(path);
-  }
+}
   
   // Attacher les event listeners après le rendu
   attachEventListeners(path) {

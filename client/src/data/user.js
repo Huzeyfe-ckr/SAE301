@@ -1,27 +1,20 @@
-import {getRequest} from "../lib/api-request";
+import {jsonPostRequest} from '../lib/api-request.js';
 
 let UserData = {};
 
-let fakeUsers = [
-    {
-        id: 1,
-        username: "johndoe",
-        email: "johndoe@example.com"
-    },
-    {
-        id: 2,
-        username: "janedoe",
-        email: "janedoe@example.com"
-    }
-];
-
-UserData.fetch = async function() {
-    let data = await getRequest('/users');
-    return data == false ? fakeUsers : data;
+UserData.create = async function(userInfo) {
+    console.log("UserData.create appelé avec:", userInfo);
+    const response = await jsonPostRequest('users', JSON.stringify(userInfo));
+    console.log("Réponse de jsonPostRequest:", response);
+    return response;
 };
-UserData.fetchAll = async function(id) {
-    let data = await getRequest(`/users/${id}`);
-    return data == false ? fakeUsers.find(user => user.id === id) : data;
+
+// ✅ AJOUTER CETTE MÉTHODE
+UserData.login = async function(credentials) {
+    console.log("UserData.login appelé avec:", credentials);
+    const response = await jsonPostRequest('users', JSON.stringify(credentials));
+    console.log("Réponse de login:", response);
+    return response;
 };
 
 export { UserData };

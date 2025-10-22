@@ -1,56 +1,52 @@
 import { htmlToFragment } from "../../lib/utils.js";
 import template from "./template.html?raw";
-import { postRequest } from "../../lib/api-request.js";
+import { UserData } from "../../data/user.js";
 
 let C = {};
 
 C.handler_submitForm = async function(ev) {
     ev.preventDefault();
+    ev.stopPropagation();
+
+    let form = ev.target;
+    let formData = new FormData(form);
+
+    console.log("Données du formulaire:");
+    console.log(formData.get("email"));
+    console.log(formData.get("password"));
+    console.log(formData.get("gender"));
+    console.log(formData.get("prenom"));
+    console.log(formData.get("nom"));
     
-    const form = ev.target;
-    const formData = {
-        action: 'register',
-        prenom: form.querySelector('input[name="prenom"]').value,
-        nom: form.querySelector('input[name="nom"]').value,
-        email: form.querySelector('input[type="email"]').value,
-        mot_de_passe: form.querySelector('input[type="password"]').value,
-        // pays: form.querySelector('select').value,
-        // date_naissance: form.querySelector('input[type="date"]').value
+    // ✅ Préparer les données avec les bons noms de propriétés
+    let data = {
+        action: 'register', // ✅ IMPORTANT: Ajouter l'action
+        email: formData.get("email"),
+        password: formData.get("password"), // ✅ Utiliser "password" (sera converti côté serveur)
+        gender: formData.get("gender"),
+        prenom: formData.get("prenom"),
+        nom: formData.get("nom")
     };
-    if (!formData.prenom || !formData.nom || !formData.email || !formData.mot_de_passe) {
-        alert('Veuillez remplir tous les champs obligatoires');
-        return;
-    }
     
-    // Validation du mot de passe
-    const password = formData.mot_de_passe;
-    if (password.length < 8 || !/[0-9]/.test(password) || !/[A-Za-z]/.test(password)) {
-        alert('Le mot de passe doit contenir au moins 8 caractères, des lettres et des chiffres');
-        return;
-    }
+    console.log("Données envoyées à l'API:", data);
     
-    // Envoi de la requête à l'API
-    const response = await postRequest('users', formData);
-    
-    if (response === false) {
-        alert('Une erreur est survenue. Veuillez réessayer.');
-        return;
-    }
-    
-    if (response.success) {
-        alert('Compte créé avec succès !');
-        window.location.href = '/compte';
-    } else if (response.error) {
-        alert('Erreur : ' + response.error);
-    } else {
-        alert('Erreur lors de la création du compte');
+    try {
+        // ✅ Utiliser await pour attendre la réponse
+        const result = await UserData.create(data);
+        
+        console.log("Résultat de l'API:", result);
+        
+        if (result && result.success) {
+            alert('Inscription réussie ! Bienvenue ' + result.user.firstname);
+            window.location.href = '/';
+        } else {
+            alert(result.error || 'Erreur lors de l\'inscription');
+        }
+    } catch (error) {
+        console.error('Erreur complète:', error);
+        alert('Erreur lors de l\'inscription. Veuillez réessayer.');
     }
 };
-
-
-
-
-
 
 C.init = function() {
     return V.init();
@@ -62,6 +58,12 @@ V.init = function() {
     let fragment = htmlToFragment(template);
     V.attachEvents(fragment);
     return fragment;
+};
+
+V.newComptesFragment = function(data) {
+    let pagefragment = htmlToFragment(template);
+    let formDOM = pagefragment.querySelector('form');
+    return pagefragment;
 };
 
 V.attachEvents = function(fragment) {

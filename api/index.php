@@ -4,8 +4,9 @@ error_reporting(E_ALL);
 ini_set("display_errors", "1");
 require_once "src/Controller/ProductController.php";
 require_once "src/Controller/UserController.php";
-require_once "src/Class/HttpRequest.php";
 require_once "src/Controller/AuthController.php";
+require_once "src/Class/HttpRequest.php";
+
 
 
 /** IMPORTANT

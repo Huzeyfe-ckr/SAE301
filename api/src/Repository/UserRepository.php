@@ -119,7 +119,7 @@ class UserRepository extends EntityRepository {
         $u = new User($answer->id);
         $u->setFirstName($answer->prenom);
         $u->setLastName($answer->nom);
-        $u->setPseudo($answer->pseudo);
+        $u->setGender($answer->gender);
         $u->setEmail($answer->email);
         $u->setPassword($answer->mot_de_passe);
 
@@ -137,7 +137,7 @@ class UserRepository extends EntityRepository {
             $u = new User($obj->id);
             $u->setFirstName($obj->prenom);
             $u->setLastName($obj->nom);
-            $u->setPseudo($obj->pseudo);
+            $u->setGender($obj->gender);
             $u->setEmail($obj->email);
             $u->setPassword($obj->mot_de_passe);
             
@@ -149,19 +149,19 @@ class UserRepository extends EntityRepository {
 
    public function save($user): bool {
     $requete = $this->cnx->prepare(
-        "INSERT INTO User (prenom, nom, pseudo, email, mot_de_passe) 
-         VALUES (:prenom, :nom, :pseudo, :email, :mot_de_passe)"
+        "INSERT INTO User (prenom, nom, gender, email, mot_de_passe) 
+         VALUES (:prenom, :nom, :gender, :email, :mot_de_passe)"
     );
     
     $prenom = $user->getFirstName();
     $nom = $user->getLastName();
-    $pseudo = $user->getPseudo();
+    $gender = $user->getGender();
     $email = $user->getEmail();
     $password = $user->getPassword();
 
     $requete->bindParam(':prenom', $prenom);
     $requete->bindParam(':nom', $nom);
-    $requete->bindParam(':pseudo', $pseudo);
+    $requete->bindParam(':gender', $gender);
     $requete->bindParam(':email', $email);
     $requete->bindParam(':mot_de_passe', $password);
 
@@ -183,21 +183,21 @@ class UserRepository extends EntityRepository {
 
     public function update($user): bool {
         $requete = $this->cnx->prepare(
-            "UPDATE User SET prenom=:prenom, nom=:nom, pseudo=:pseudo, 
+            "UPDATE User SET prenom=:prenom, nom=:nom, gender=:gender, 
              email=:email, mot_de_passe=:mot_de_passe WHERE id=:id"
         );
         
         $id = $user->getId();
         $prenom = $user->getFirstName();
         $nom = $user->getLastName();
-        $pseudo = $user->getPseudo();
+        $gender = $user->getGender();
         $email = $user->getEmail();
         $password = $user->getPassword();
         
         $requete->bindParam(':id', $id);
         $requete->bindParam(':prenom', $prenom);
         $requete->bindParam(':nom', $nom);
-        $requete->bindParam(':pseudo', $pseudo);
+        $requete->bindParam(':gender', $gender);
         $requete->bindParam(':email', $email);
         $requete->bindParam(':mot_de_passe', $password);
         
@@ -215,16 +215,16 @@ class UserRepository extends EntityRepository {
         $u = new User($answer->id);
         $u->setFirstName($answer->prenom);
         $u->setLastName($answer->nom);
-        $u->setPseudo($answer->pseudo);
+        $u->setGender($answer->gender);
         $u->setEmail($answer->email);
         $u->setPassword($answer->mot_de_passe);
 
         return $u;
     }
 
-    public function findByPseudo(string $pseudo): ?User {
-        $requete = $this->cnx->prepare("SELECT * FROM User WHERE pseudo=:pseudo");
-        $requete->bindParam(':pseudo', $pseudo);
+    public function findByGender(string $gender): ?User {
+        $requete = $this->cnx->prepare("SELECT * FROM User WHERE gender=:gender");
+        $requete->bindParam(':gender', $gender);
         $requete->execute();
         $answer = $requete->fetch(PDO::FETCH_OBJ);
         
@@ -233,7 +233,7 @@ class UserRepository extends EntityRepository {
         $u = new User($answer->id);
         $u->setFirstName($answer->prenom);
         $u->setLastName($answer->nom);
-        $u->setPseudo($answer->pseudo);
+        $u->setGender($answer->gender);
         $u->setEmail($answer->email);
         $u->setPassword($answer->mot_de_passe);
 
