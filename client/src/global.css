@@ -8,15 +8,18 @@
   --color-dark: var(--clr-black);
   --color-blue-mid: var(--clr-blue-mid);
   --color-blue-dark: var(--clr-blue-dark);
+  --color-blue-l: var(--clr-blue-lightest);
+  --color-blue-ll: var(--clr-blue-sulight);
   --color-gray: var(--clr-gray);
+  --color-gray-light: var(--clr-gray-100);
   --color-yellow: var(--clr-yellow);
   --color-purple: var(--clr-purple);
   --color-red: var(--clr-red);
   --color-white: var(--clr-white);
   --color-green: var(--clr-green);
   --color-fb-blue: var(--clr-fb-blue);
-  --color-blue-l: var(--clr-blue-lightest);
   --color-red-dark: var(--clr-red-dark);
+ 
 
   --font-grotesk: "Space Grotesk", sans-serif;
 }
@@ -30,16 +33,19 @@
     --clr-black: oklch(0% 0 0);
     --clr-white: oklch(100% 0.00011 271.152);
     --clr-blue-light: oklch(63.7% 0.175 226.7);
+    --clr-blue-sulight: oklch(93.2% 0.032 255.585);
     --clr-blue-dark: oklch(24.9% 0.094 265.9);
     --clr-blue-mid: oklch(32.2% 0.12 259.8);
     --clr-navy: oklch(7.2% 0.022 259.5);
     --clr-gray: oklch(59.8% 0.009 257.3);
+    --clr-gray-100: oklch(87.2% 0.01 258.338);
     --clr-purple: oklch(52.3% 0.213 326.5);
     --clr-yellow: oklch(76.045% 0.15556 92.496);
     --clr-red: oklch(45.8% 0.236 28.9);
     --clr-blue-pale: oklch(91.8% 0.038 216.1);
     --clr-green: oklch(36.719% 0.10456 147.881);
     --clr-fb-blue: oklch(42.5% 0.105 268.8);
+
 
     --mon-image: url("/image-profile-mobile.webp");
   }
