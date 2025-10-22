@@ -2,12 +2,21 @@
 
 error_reporting(E_ALL);
 ini_set("display_errors", "1");
+
+// ✅ Configuration des cookies de session AVANT tout le reste
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'domain' => '',
+    'secure' => true,  // true car l'API est en HTTPS
+    'httponly' => true,
+    'samesite' => 'None'  // None pour permettre cross-origin
+]);
+
 require_once "src/Controller/ProductController.php";
 require_once "src/Controller/UserController.php";
 require_once "src/Controller/AuthController.php";
 require_once "src/Class/HttpRequest.php";
-
-
 
 /** IMPORTANT
  * 

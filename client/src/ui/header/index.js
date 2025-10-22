@@ -32,6 +32,8 @@ let HeaderView = {
     try {
       const authData = await getRequest('auth');
       
+      console.log("Header: Données auth reçues:", authData);
+      
       const userLink = fragment.querySelector('#user-link');
       const userLinkText = fragment.querySelector('#user-link-text');
       
@@ -39,14 +41,22 @@ let HeaderView = {
         // Utilisateur connecté → Afficher "PROFIL"
         userLink.setAttribute('href', '/profil');
         userLinkText.textContent = 'PROFIL';
+        console.log("Header: Affichage PROFIL");
       } else {
         // Utilisateur non connecté → Afficher "COMPTE"
         userLink.setAttribute('href', '/compte');
         userLinkText.textContent = 'COMPTE';
+        console.log("Header: Affichage COMPTE");
       }
     } catch (error) {
-      console.error('Erreur lors de la vérification de la session:', error);
+      console.error('Header: Erreur lors de la vérification de la session:', error);
       // En cas d'erreur, garder le lien par défaut vers /compte
+      const userLink = fragment.querySelector('#user-link');
+      const userLinkText = fragment.querySelector('#user-link-text');
+      if (userLink && userLinkText) {
+        userLink.setAttribute('href', '/compte');
+        userLinkText.textContent = 'COMPTE';
+      }
     }
   }
 };

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Session</title>
+</head>
+<body>
+    <h1>Test de Session</h1>
+    <button onclick="login()">1. Se connecter</button>
+    <button onclick="checkAuth()">2. Vérifier auth</button>
+    <button onclick="logout()">3. Se déconnecter</button>
+    <div id="result"></div>
+
+    <script>
+        const API_URL = 'https://mmi.unilim.fr/~cakir4/api';
+
+        async function login() {
+            const response = await fetch(`${API_URL}/auth`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: 'a@a.com',  // CHANGEZ AVEC VOTRE EMAIL
+                    password: 'azerty123'  // CHANGEZ AVEC VOTRE MOT DE PASSE
+                })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            console.log('Login:', data);
+        }
+
+        async function checkAuth() {
+            const response = await fetch(`${API_URL}/auth`, {
+                credentials: 'include'
+            });
+            const data = await response.json();
+            document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            console.log('Auth check:', data);
+        }
+
+        async function logout() {
+            const response = await fetch(`${API_URL}/auth`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+            const data = await response.json();
+            document.getElementById('result').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            console.log('Logout:', data);
+        }
+    </script>
+</body>
+</html>

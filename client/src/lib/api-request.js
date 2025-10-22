@@ -4,7 +4,7 @@
  */
 
 
-let API_URL = "http://mmi.unilim.fr/~cakir4/api/";
+let API_URL = "https://mmi.unilim.fr/~cakir4/api/";
 
 
 /**
@@ -25,6 +25,7 @@ let API_URL = "http://mmi.unilim.fr/~cakir4/api/";
 let getRequest = async function(uri){
 
     let options = {
+        credentials: 'include', // inclure les cookies dans la requête
         method: "GET",
     };
 
@@ -86,8 +87,9 @@ let jsonPostRequest = async function(uri, data){
     // Défition des options de la requêtes
     let options = {
         method: 'POST',
-        header: {
-            Content_Type: 'application/json' // type de données envoyées (nécessaire si upload fichier)
+        credentials: 'include', // ✅ Inclure les cookies
+        headers: {
+            'Content-Type': 'application/json'
         },
         body: data
     };
@@ -108,15 +110,32 @@ let jsonPostRequest = async function(uri, data){
 /**
  *  deleteRequest
  * 
- *  Requête en DELETE l'URI uri. Par exemple "http://.../products/3"
+ *  Requête en DELETE l'URI uri. Par exemple "http://.../auth"
  * 
  *  Une requête en DELETE correspond à une demande de suppression d'une ressource.
- *  Par exemple : patchRequest("http://.../products/3") pour supprimer le produit d'identifiant 3
+ *  Par exemple : deleteRequest("auth") pour détruire la session
  * 
- *  La fonction retourne true ou false selon le succès de l'opération
+ *  La fonction retourne les données JSON ou false si échec
  */
 let deleteRequest = async function(uri){
-   // Pas implémenté. TODO if needed.
+    let options = {
+        method: 'DELETE',
+        credentials: 'include' // inclure les cookies dans la requête
+    };
+    
+    try{
+        var response = await fetch(API_URL+uri, options);
+    }
+    catch(e){
+        console.error("Echec de la requête : " + e);
+        return false;
+    }
+    if (response.status != 200){
+        console.error("Erreur de requête : " + response.status);
+        return false;
+    }
+    let $obj = await response.json();
+    return $obj;        
 }
 
 
@@ -136,4 +155,4 @@ let patchRequest = async function(uri, data){
 }
 
 
-export {getRequest, postRequest, jsonPostRequest }
+export {getRequest, postRequest, jsonPostRequest, deleteRequest }

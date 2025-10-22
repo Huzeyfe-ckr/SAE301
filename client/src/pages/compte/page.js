@@ -1,9 +1,13 @@
 import { htmlToFragment } from "../../lib/utils.js";
 import template from "./template.html?raw";
-import { UserData } from "../../data/user.js";
+import { jsonPostRequest } from "../../lib/api-request.js";
+import { updateAuthStatus } from "../../main.js";
 
 let C = {};
 
+/**
+ * Gestionnaire de soumission du formulaire de connexion
+ */
 C.handler_submitLogin = async function(ev) {
     ev.preventDefault();
     ev.stopPropagation();
@@ -11,28 +15,29 @@ C.handler_submitLogin = async function(ev) {
     const form = ev.target;
     const formData = new FormData(form);
     
+    // ✅ AuthController n'utilise PAS "action", juste email et password
     const data = {
-        action: 'login', // ✅ IMPORTANT: Ajouter l'action pour la connexion
         email: formData.get("email"),
         password: formData.get("password")
     };
     
-    console.log("Données de connexion envoyées:", data);
+    console.log("📤 Tentative de connexion avec:", data.email);
     
-    try {
-        const result = await UserData.login(data);
+    // Appeler l'API via jsonPostRequest
+    const result = await jsonPostRequest('auth', JSON.stringify(data));
+    
+    console.log("📥 Réponse du serveur:", result);
+    
+    if (result && result.success) {
+        console.log("✅ Connexion réussie, session créée côté serveur");
         
-        console.log("Résultat de connexion:", result);
+        await updateAuthStatus();
         
-        if (result && result.success) {
-            alert('Connexion réussie ! Bienvenue ' + result.user.firstname);
-            window.location.href = '/profil'; // Rediriger vers la page d'accueil
-        } else {
-            alert(result.error || 'Email ou mot de passe incorrect');
-        }
-    } catch (error) {
-        console.error('Erreur de connexion:', error);
-        alert('Erreur lors de la connexion. Veuillez réessayer.');
+        alert('Connexion réussie ! Bienvenue ' + result.user.prenom);
+        window.location.href = '/profil';
+        
+    } else {
+        alert(result.error || 'Email ou mot de passe incorrect');
     }
 };
 
