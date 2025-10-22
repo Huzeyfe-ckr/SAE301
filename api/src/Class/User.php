@@ -24,12 +24,12 @@ class User extends Entity {
         ];
     }
 
-    // ✅ AJOUTER CETTE MÉTHODE
+    
     public function getId(): int {
         return $this->id;
     }
 
-    // ✅ AJOUTER CETTE MÉTHODE
+    
     public function setId(int $id): self {
         $this->id = $id;
         return $this;

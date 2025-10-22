@@ -23,12 +23,11 @@ C.handler_submitForm = async function(ev) {
         nom: formData.get("nom")
     };
     
-    console.log("📤 Tentative d'inscription:", data.email);
+   
     
     // Appeler l'API via jsonPostRequest
     const result = await jsonPostRequest('users', JSON.stringify(data));
     
-    console.log("📥 Réponse du serveur:", result);
     
     if (result && result.success) {
         console.log("✅ Inscription réussie");

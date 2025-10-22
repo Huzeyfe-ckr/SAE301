@@ -21,7 +21,6 @@ C.handler_logout = async function(ev) {
             alert('Erreur lors de la déconnexion');
         }
     } catch (error) {
-        console.error('Erreur de déconnexion:', error);
         alert('Erreur lors de la déconnexion');
     }
 };
@@ -37,7 +36,6 @@ C.init = async function() {
         const authData = await getRequest('auth');
         
         if (!authData || !authData.is_authenticated) {
-            // Rediriger vers la page de connexion si non connecté
             window.location.href = '/compte';
             return '<div>Redirection...</div>';
         }
@@ -46,8 +44,7 @@ C.init = async function() {
         return V.init(M.user);
         
     } catch (error) {
-        console.error('Erreur de chargement du profil:', error);
-        window.location.href = '/compte';
+         window.location.href = '/compte';
         return '<div>Erreur de chargement...</div>';
     }
 };

@@ -17,12 +17,10 @@ class AuthController extends EntityController {
         
         if (empty($data)) {
             http_response_code(400);
-            return ['error' => 'Données JSON invalides'];
         }
 
         if (!$data || !isset($data->email) || !isset($data->password)) {
             http_response_code(400);
-            return ['error' => 'Email et mot de passe requis'];
         }
         
         $email = $data->email;
@@ -32,13 +30,11 @@ class AuthController extends EntityController {
         
         if (!$user) {
             http_response_code(401);
-            return ['error' => 'Email ou mot de passe incorrect'];
         }
         
         // Vérifier le mot de passe
         if (!password_verify($password, $user->getPassword())) {
             http_response_code(401);
-            return ['error' => 'Email ou mot de passe incorrect'];
         }
         
         if (session_status() === PHP_SESSION_NONE) {
@@ -53,7 +49,6 @@ class AuthController extends EntityController {
         
         return [
             'success' => true,
-            'message' => 'Connexion réussie',
             'user' => [
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
@@ -72,7 +67,6 @@ class AuthController extends EntityController {
         if (!isset($_SESSION['user_id'])) {
             return [
                 'is_authenticated' => false,
-                'message' => 'Non connecté'
             ];
         }
         
@@ -81,7 +75,6 @@ class AuthController extends EntityController {
         if (!$user) {
             return [
                 'is_authenticated' => false,
-                'message' => 'Utilisateur introuvable'
             ];
         }
         
@@ -106,18 +99,15 @@ class AuthController extends EntityController {
         
         return [
             'success' => true,
-            'message' => 'Déconnexion réussie'
         ];
     }
     
     protected function processPutRequest(HttpRequest $request) {
         http_response_code(405);
-        return ['error' => 'Méthode non autorisée'];
     }
     
     protected function processPatchRequest(HttpRequest $request) {
         http_response_code(405);
-        return ['error' => 'Méthode non autorisée'];
     }
 }
 ?>

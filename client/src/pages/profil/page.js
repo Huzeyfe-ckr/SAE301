@@ -65,12 +65,25 @@ V.init = function(user) {
 };
 
 V.fillUserData = function(fragment, user) {
-    fragment.querySelector('#user-firstname').textContent = user.prenom || 'Non renseigné';
-    fragment.querySelector('#user-lastname').textContent = user.nom || 'Non renseigné';
-    fragment.querySelector('#user-email').textContent = user.email || 'Non renseigné';
+    // Remplir les champs du formulaire
+    fragment.querySelector('#user-firstname').value = user.prenom || '';
+    fragment.querySelector('#user-lastname').value = user.nom || '';
+    fragment.querySelector('#user-email').value = user.email || '';
     
-    const genderText = user.gender === 'M' ? 'Monsieur' : user.gender === 'F' ? 'Madame' : 'Non renseigné';
-    fragment.querySelector('#user-gender').textContent = genderText;
+    // Cocher le bon bouton radio pour la civilité
+    if (user.gender === 'M') {
+        fragment.querySelector('#user-gender-m').checked = true;
+    } else if (user.gender === 'F') {
+        fragment.querySelector('#user-gender-f').checked = true;
+    }
+    
+    // Remplir les informations du profil (colonne gauche)
+    fragment.querySelector('#user-fullname').textContent = `${user.prenom || ''} ${user.nom || ''}`.trim();
+    fragment.querySelector('#user-id').textContent = user.id || '';
+    
+    // Message de bienvenue
+    const genderText = user.gender === 'M' ? 'Monsieur' : user.gender === 'F' ? 'Madame' : '';
+    fragment.querySelector('#user-welcome').textContent = `Bonjour ${genderText} ${user.nom || ''}`.trim();
 };
 
 V.attachEvents = function(fragment) {

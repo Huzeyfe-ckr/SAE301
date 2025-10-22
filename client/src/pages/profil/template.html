@@ -1,34 +1,182 @@
-<div class="max-w-4xl mx-auto p-6">
-  <div class="bg-white rounded-lg shadow-md p-8">
-    <h1 class="text-3xl font-bold mb-6 text-gray-900">Mon Profil</h1>
-    
-    <div class="space-y-4">
-      <div class="border-b pb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
-        <p class="text-lg" id="user-firstname">Chargement...</p>
+<section class="flex flex-col md:flex-row bg-blue-mid min-h-screen rounded-2xl p-6 gap-6">
+
+  <!-- COLONNE GAUCHE -->
+  <aside class="md:w-1/3 lg:w-1/4 bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+    <!-- Profil -->
+    <img src="https://i.pravatar.cc/300" alt="Photo de profil" class="w-24 h-24 rounded-full mb-4" />
+    <p class="font-semibold" id="user-welcome">Bonjour</p>
+    <p class="text-gray mb-2" id="user-fullname"></p>
+    <p class="text-blue-mid font-medium mb-4">N° client : <span id="user-id"></span></p>
+
+    <button id="logout-btn" class="bg-red text-white px-4 py-2 rounded-md hover:bg-red-dark transition cursor-pointer">
+      ME DÉCONNECTER
+    </button>
+
+    <!-- Menu -->
+    <nav class="mt-8 w-full flex flex-col text-sm">
+      <a href="#" class="bg-blue-l text-blue-dark font-semibold p-3 rounded mb-2">Mes informations</a>
+      <a href="#" class="bg-blue-l hover:bg-blue-100 p-3 rounded mb-2">Mes commandes</a>
+      <a href="#" class="bg-blue-l hover:bg-blue-100 p-3 rounded mb-2">Mes adresses</a>
+      <a href="#" class="bg-blue-l hover:bg-blue-100 p-3 rounded mb-2">Mes paniers sauvegardés</a>
+      <a href="#" class="bg-blue-l hover:bg-blue-100 p-3 rounded mb-2">Mes bons d’achat et avoirs</a>
+      <a href="#" class="bg-blue-l hover:bg-blue-100 p-3 rounded mb-2">Mon créateur</a>
+      <a href="#" class="bg-blue-l hover:bg-blue-100 p-3 rounded mb-2">Mes paramètres</a>
+      <a href="#" class="bg-blue-l hover:bg-blue-100 p-3 rounded">LDLC Pass</a>
+    </nav>
+  </aside>
+
+
+
+
+
+
+  <main class="flex-1 bg-white rounded-lg p-8 space-y-12">
+  <!-- ================= COORDONNÉES ================= -->
+  <section>
+    <h1 class="text-3xl font-bold mb-6 text-blue-dark text-center">COORDONNÉES</h1>
+
+    <form id="user-form" class="space-y-6">
+      <!-- Civilité + Email -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Civilité -->
+        <div>
+          <label class="block text-sm font-medium text-gray mb-2">Civilité :</label>
+          <div class="flex items-center gap-4">
+            <label class="flex items-center gap-1">
+              <input type="radio" name="gender" value="M" class="text-blue-mid" id="user-gender-m" />
+              <span>M.</span>
+            </label>
+            <label class="flex items-center gap-1">
+              <input type="radio" name="gender" value="F" class="text-blue-mid" id="user-gender-f" />
+              <span>MME.</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="user-email" class="block text-sm font-medium text-gray mb-2">Email :</label>
+          <input
+            type="email"
+            id="user-email"
+            name="email"
+            placeholder="exemple@domaine.com"
+            class="w-full bg-blue-l border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-mid"
+            autocomplete="email"
+            readonly
+          />
+        </div>
       </div>
-      
-      <div class="border-b pb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-        <p class="text-lg" id="user-lastname">Chargement...</p>
+
+      <!-- Prénom + Nom -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="user-firstname" class="block text-sm font-medium text-gray mb-2">Prénom :</label>
+          <input
+            type="text"
+            id="user-firstname"
+            name="firstname"
+            placeholder="Votre prénom"
+            class="w-full bg-blue-l border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-mid"
+            autocomplete="given-name"
+          />
+        </div>
+
+        <div>
+          <label for="user-lastname" class="block text-sm font-medium text-gray mb-2">Nom :</label>
+          <input
+            type="text"
+            id="user-lastname"
+            name="lastname"
+            placeholder="Votre nom"
+            class="w-full bg-blue-l border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-mid"
+            autocomplete="family-name"
+          />
+        </div>
       </div>
-      
-      <div class="border-b pb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-        <p class="text-lg" id="user-email">Chargement...</p>
+
+      <!-- Bouton -->
+      <div class="text-center mt-8">
+        <button
+          type="button"
+          id="edit-profile"
+          class="bg-blue-mid text-white px-8 py-2 rounded-md hover:bg-blue-dark transition cursor-pointer"
+        >
+          Modifier mes informations
+        </button>
       </div>
-      
-      <div class="border-b pb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Civilité</label>
-        <p class="text-lg" id="user-gender">Chargement...</p>
+    </form>
+  </section>
+
+  <!-- ================= CHANGER DE MOT DE PASSE ================= -->
+  <section class="pt-8 border-t border-gray-200">
+    <h2 class="text-2xl font-bold mb-6 text-blue-dark text-center">CHANGER DE MOT DE PASSE</h2>
+
+    <form id="password-form" class="max-w-xl mx-auto space-y-4">
+      <!-- Mot de passe actuel -->
+      <div class="relative">
+        <input
+          type="password"
+          id="current-password"
+          name="current-password"
+          placeholder="Mot de passe actuel"
+          class="w-full bg-blue-l border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-mid"
+          autocomplete="current-password"
+        />
+        <button
+          type="button"
+          id="toggle-current-password"
+          class="absolute right-3 top-2.5 text-gray-500 hover:text-blue-mid"
+        >
+          👁️
+        </button>
       </div>
-    </div>
-    
-    <div class="mt-8 flex gap-4">
-      <button id="logout-btn" 
-              class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition">
-        Se déconnecter
+
+      <!-- Nouveau mot de passe -->
+      <div class="relative">
+        <input
+          type="password"
+          id="new-password"
+          name="new-password"
+          placeholder="Nouveau mot de passe"
+          class="w-full bg-blue-l border border-gray-300 rounded-md px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-mid"
+          autocomplete="new-password"
+        />
+        <button
+          type="button"
+          id="toggle-new-password"
+          class="absolute right-3 top-2.5 text-gray-500 hover:text-blue-mid"
+        >
+          👁️
+        </button>
+      </div>
+
+      <div class="text-center mt-6">
+        <button
+          type="button"
+          id="update-password"
+          class="bg-blue-mid text-white px-8 py-2 rounded-md hover:bg-blue-dark transition cursor-pointer"
+        >
+          Valider
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= SUPPRESSION DE COMPTE ================= -->
+  <section class="pt-8 border-t border-gray-200">
+    <h2 class="text-2xl font-bold mb-6 text-blue-dark text-center">SUPPRESSION DE COMPTE</h2>
+
+    <div class="text-center">
+      <button
+        type="button"
+        id="delete-account"
+        class="bg-red text-white px-8 py-2 rounded-md hover:bg-red-dark transition cursor-pointer"
+      >
+        Supprimer le compte
       </button>
     </div>
-  </div>
-</div>
+  </section>
+</main>
+
+</section>

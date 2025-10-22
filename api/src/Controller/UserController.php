@@ -33,20 +33,16 @@ class UserController extends EntityController {
                 return $this->register($obj);
             }
         }
-        
-        return ["error" => "Action non spécifiée"];
     }
     
     private function register($data) {
         // Vérifier que tous les champs sont présents
         if (!isset($data->prenom) || !isset($data->nom) || !isset($data->email) || 
             !isset($data->password)) {
-            return ["error" => "Tous les champs obligatoires doivent être remplis"];
         }
         
         // Vérifier si l'email existe déjà
         if ($this->users->findByEmail($data->email)) {
-            return ["error" => "Cet email est déjà utilisé"];
         }
         
         // Créer le nouvel utilisateur
@@ -73,7 +69,6 @@ class UserController extends EntityController {
             
             return [
                 "success" => true,
-                "message" => "Inscription réussie",
                 "user" => [
                     "id" => $u->getId(),
                     "firstname" => $u->getFirstName(),
@@ -84,7 +79,7 @@ class UserController extends EntityController {
             ];
         }
         
-        return ["error" => "Erreur lors de l'inscription"];
+
     }
     
     private function login($data) {
@@ -117,7 +112,6 @@ class UserController extends EntityController {
         
         return [
             "success" => true,
-            "message" => "Connexion réussie",
             "user" => [
                 "id" => $user->getId(),
                 "firstname" => $user->getFirstName(),

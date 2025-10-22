@@ -5,9 +5,7 @@ import { updateAuthStatus } from "../../main.js";
 
 let C = {};
 
-/**
- * Gestionnaire de soumission du formulaire de connexion
- */
+
 C.handler_submitLogin = async function(ev) {
     ev.preventDefault();
     ev.stopPropagation();
@@ -15,21 +13,16 @@ C.handler_submitLogin = async function(ev) {
     const form = ev.target;
     const formData = new FormData(form);
     
-    // ✅ AuthController n'utilise PAS "action", juste email et password
+   
     const data = {
         email: formData.get("email"),
         password: formData.get("password")
     };
     
-    console.log("📤 Tentative de connexion avec:", data.email);
-    
-    // Appeler l'API via jsonPostRequest
     const result = await jsonPostRequest('auth', JSON.stringify(data));
     
-    console.log("📥 Réponse du serveur:", result);
     
     if (result && result.success) {
-        console.log("✅ Connexion réussie, session créée côté serveur");
         
         await updateAuthStatus();
         
