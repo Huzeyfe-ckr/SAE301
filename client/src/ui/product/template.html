@@ -1,30 +1,61 @@
-<article class="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-lg bg-white p-4 lg:p-8 shadow-md transition w-full hover:shadow-lg ">
-  <a href="/products/{{id}}/{{name}}" data-link class="text-blue-dark  text-sm ">
-    
+<article class="bg-white border-2 border-blue-dark rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group w-100 flex flex-col">
   <!-- Image du produit -->
-  <section class="w-full sm:w-1/5 flex justify-center sm:justify-start">
-    <img
-      src="/assets/{{image}}"
-      alt="{{name}}"
-      class="w-32 sm:w-full rounded-md object-cover xs:w-12"
-    />
-  </section>
+  <a href="/products/{{id}}/{{name}}" data-link class="block">
+    <div class="relative overflow-hidden h-64 bg-white">
+      <img
+        src="/assets/{{image}}"
+        alt="{{name}}"
+        class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+  </a>
 
-  <!-- Infos produit -->
-  <section class="flex-1 text-center sm:text-left">
-    <h3 class="text-xs sm:text-2xl font-semibold text-dark mb-1 ">
-      {{name}}
-    </h3>
+  <!-- Contenu produit -->
+  <div class="p-6 flex flex-col gap-4 bg-blue-l flex-1">
+    <!-- Titre -->
+    <a href="/products/{{id}}/{{name}}" data-link>
+      <h3 class="text-lg font-bold text-blue-dark hover:text-blue-mid transition line-clamp-2 h-14">
+        {{name}}
+      </h3>
+    </a>
     
-  </section>
+    <!-- Description -->
+    <p class="text-gray text-sm line-clamp-3 h-16 flex-1">
+      {{description}}
+    </p>
 
-  <!-- Prix + bouton -->
-  <section
-    class="flex flex-col sm:items-end items-center gap-2 mt-4 sm:mt-0"
-  >
-    <h3 class="text-lg sm:text-2xl font-bold text-gray xs:14px">
-      {{price}} €
-    </h3>
-  </section>
-  Voir le détail</a>
+    <!-- Footer avec prix et boutons -->
+    <div class="flex flex-col gap-3 mt-auto pt-4 border-t border-gray-300">
+      <div class="flex items-center justify-between">
+        <div class="flex flex-col">
+          <span class="text-xs text-gray uppercase">Prix</span>
+          <span class="text-2xl font-bold text-blue-mid">{{price}} €</span>
+        </div>
+      </div>
+      
+      <div class="flex gap-2 w-full">
+        <a 
+          href="/products/{{id}}/{{name}}" 
+          data-link
+          class="flex-1 bg-blue-mid hover:bg-blue-dark text-white font-semibold py-2 px-3 rounded-lg transition flex items-center justify-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+          <span class="hidden md:inline">Détails</span>
+        </a>
+        
+        <button 
+          class="flex-1 bg-yellow hover:bg-yellow/80 text-blue-dark font-semibold py-2 px-3 rounded-lg transition flex items-center justify-center gap-2"
+          data-add-to-cart="{{id}}"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          <span class="hidden md:inline">Panier</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </article>

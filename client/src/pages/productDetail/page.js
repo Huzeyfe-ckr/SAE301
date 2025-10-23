@@ -1,71 +1,93 @@
-import { ProductData } from "../../data/product.js";
-import { htmlToFragment } from "../../lib/utils.js";
 import { DetailView } from "../../ui/detail/index.js";
-import template from "./template.html?raw";
-
+import { getRequest } from "../../lib/api-request.js";
+import { ProductData } from "../../data/product.js";
+import { CartData } from "../../data/cart.js";
 
 let M = {
-    products: []
+  product: null,
 };
-
-M.getProductById = function(id){
-    return M.products.find(product => product.id == id);
-}
-
 
 let C = {};
 
-C.handler_clickOnProduct = function(ev){
-    if (ev.target.dataset.buy!==undefined){
-        let id = ev.target.dataset.buy;
-        alert(`Produit ajouté au panier ! (Quand il y en aura un)`);
-    }
-}
-
-
-C.init = async function(params) {
-    // Récupérer l'ID depuis les paramètres de route
-    const productId = params.id;
-    
-    // Charger le produit depuis l'API
-    M.products = await ProductData.fetchAll();
-    
-    let p = M.getProductById(productId);
-    console.log("Product loaded:", p);
-
-    
-    return V.init(p);
-}
-
-
 let V = {};
 
-V.init = function(data) {
-    let fragment = V.createPageFragment(data);
-    V.attachEvents(fragment);
-    return fragment;
-}
+C.init = async function (params) {
+  const productId = params.id;
+  
+  if (!productId) {
+    console.error("ID du produit manquant");
+    return;
+  }
 
-V.createPageFragment = function(data) {
-    // Créer le fragment depuis le template
-    let pageFragment = htmlToFragment(template);
+  // Récupérer le produit depuis l'API
+  const apiProduct = await getRequest(`products/${productId}`);
+  
+  if (apiProduct) {
+    M.product = apiProduct;
+  } else {
+    // Fallback sur les données locales
+    const allProducts = ProductData.getAll();
+    M.product = allProducts.find(p => p.id === parseInt(productId));
+  }
+  
+  if (!M.product) {
+    console.error("Produit introuvable");
+    return;
+  }
+};
+
+V.dom = function () {
+  if (!M.product) {
+    return document.createDocumentFragment();
+  }
+  
+  return DetailView.dom(M.product);
+};
+
+C.attachEventListeners = function () {
+  setTimeout(() => {
+    const addToCartBtn = document.querySelector('[data-add-to-cart]');
     
-    // Générer le composant detail
-    let detailDOM = DetailView.dom(data);
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', () => {
+        const quantity = parseInt(document.querySelector('[data-quantity]')?.value || 1);
+        CartData.addItem(M.product, quantity);
+        
+        // Feedback visuel
+        const originalText = addToCartBtn.textContent;
+        addToCartBtn.textContent = '✓ Ajouté au panier';
+        addToCartBtn.classList.add('added-to-cart');
+        
+        setTimeout(() => {
+          addToCartBtn.textContent = originalText;
+          addToCartBtn.classList.remove('added-to-cart');
+        }, 2000);
+      });
+    }
     
-    // Remplacer le slot par le composant detail
-    pageFragment.querySelector('slot[name="detail"]').replaceWith(detailDOM);    
-    return pageFragment;
-}
+    // Gérer les miniatures de la galerie après l'insertion dans le DOM
+    const thumbs = document.querySelectorAll('[data-gallery-thumb]');
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        const mainImage = document.getElementById('main-image');
+        if (mainImage && M.product.images && M.product.images[index]) {
+          mainImage.src = M.product.images[index];
+        }
+        
+        document.querySelectorAll('[data-gallery-thumb]').forEach(t => {
+          t.classList.remove('border-blue-mid');
+          t.classList.add('border-transparent');
+        });
+        thumb.classList.remove('border-transparent');
+        thumb.classList.add('border-blue-mid');
+      });
+    });
+  }, 0);
+};
 
-V.attachEvents = function(pageFragment) {
-    // Attacher un event listener au bouton
-    const addToCartBtn = pageFragment.querySelector('[data-buy]');
-    addToCartBtn.addEventListener('click', C.handler_clickOnProduct);
-    return pageFragment;
-}
-
-export function ProductDetailPage(params) {
-    console.log("ProductDetailPage", params);
-    return C.init(params);
+export async function ProductDetailPage(params = {}) {
+  await C.init(params);
+  const dom = V.dom();
+  C.attachEventListeners();
+  return dom;
 }

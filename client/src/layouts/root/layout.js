@@ -17,15 +17,28 @@ import { FooterView } from "../../ui/footer/index.js";
  * - Remplace le slot nommé "footer" par le DOM du pied de page.
  * - Retourne le fragment DOM finalisé.
  */
+
+export default function initRootLayout() {
+  const headerSlot = document.querySelector('[data-slot="header"]');
+  if (headerSlot) {
+    headerSlot.innerHTML = HeaderView.render();
+    HeaderView.init();
+  }
+  
+  const footerSlot = document.querySelector('[data-slot="footer"]');
+  if (footerSlot) {
+    footerSlot.innerHTML = FooterView.render();
+  }
+}
+
 export async function RootLayout() {
-    let layout = htmlToFragment(template);
+  let layout = htmlToFragment(template);
 
-    // ✅ Attendre le header qui est maintenant asynchrone
-    const headerDOM = await HeaderView.dom();
-    const footerDOM = FooterView.dom();
+  const headerDOM = await HeaderView.dom();
+  const footerDOM = FooterView.dom();
 
-    layout.querySelector('slot[name="header"]').replaceWith(headerDOM);
-    layout.querySelector('slot[name="footer"]').replaceWith(footerDOM);
-    
-    return layout;
+  layout.querySelector('slot[name="header"]').replaceWith(headerDOM);
+  layout.querySelector('slot[name="footer"]').replaceWith(footerDOM);
+  
+  return layout;
 }
