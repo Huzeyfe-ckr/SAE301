@@ -47,12 +47,11 @@ abstract class EntityController {
                 break;
 
             default:
-                $data = false;
-                break;
+                http_response_code(405); // Method Not Allowed
+                $data = ["error" => "Méthode non supportée"];
         }
 
-        if ($data) { $json = json_encode($data); }
-        return $json;
+        return json_encode($data);
     }
 
     /**

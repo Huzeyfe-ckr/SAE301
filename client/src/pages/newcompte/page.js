@@ -26,7 +26,7 @@ C.handler_submitForm = async function(ev) {
    
     
     // Appeler l'API via jsonPostRequest
-    const result = await jsonPostRequest('users', JSON.stringify(data));
+    const result = await jsonPostRequest('users', data);
     
     
     if (result && result.success) {

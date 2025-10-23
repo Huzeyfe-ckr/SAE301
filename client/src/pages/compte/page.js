@@ -12,25 +12,34 @@ C.handler_submitLogin = async function(ev) {
     
     const form = ev.target;
     const formData = new FormData(form);
+
+    const email = formData.get("email");
+    const password = formData.get("password");
+    
+    if (!email || !password) {
+        alert('Veuillez remplir tous les champs');
+        return;
+    }
     
    
     const data = {
-        email: formData.get("email"),
-        password: formData.get("password")
+        action: 'login',
+        email: email,
+        password: password
     };
     
-    const result = await jsonPostRequest('auth', JSON.stringify(data));
-    
-    
-    if (result && result.success) {
-        
+    const response = await jsonPostRequest('auth', data);
+
+
+    if (response && response.success) {
+
         await updateAuthStatus();
-        
-        alert('Connexion réussie ! Bienvenue ' + result.user.prenom);
+
+        alert('Connexion réussie ! Bienvenue ' + response.user.prenom);
         window.location.href = '/profil';
         
     } else {
-        alert(result.error || 'Email ou mot de passe incorrect');
+        alert(response.error || 'Email ou mot de passe incorrect');
     }
 };
 

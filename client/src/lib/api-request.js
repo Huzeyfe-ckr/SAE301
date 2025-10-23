@@ -91,7 +91,7 @@ let jsonPostRequest = async function(uri, data){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: data
+        body: JSON.stringify(data),
     };
     try{
         var response = await fetch(API_URL+uri, options); // exécution (asynchrone) de la requête et attente de la réponse
@@ -151,8 +151,20 @@ let deleteRequest = async function(uri){
  *  La fonction retourne true ou false selon le succès de l'opération
  */
 let patchRequest = async function(uri, data){
-   // Pas implémenté. TODO if needed.
+    let options = {
+        method: 'PATCH',
+        body: data,
+        credentials: 'include' // inclure les cookies dans la requête
+    }
+
+    var response = await fetch(API_URL + uri, options);
+    
+    if (response.status != 200){
+        return false;
+    }
+    let $obj = await response.json();
+    return $obj;
 }
 
 
-export {getRequest, postRequest, jsonPostRequest, deleteRequest }
+export {getRequest, postRequest, jsonPostRequest, deleteRequest, patchRequest }
