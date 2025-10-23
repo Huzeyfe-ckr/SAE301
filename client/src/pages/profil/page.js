@@ -145,7 +145,7 @@ C.handler_deleteAccount = async function (ev) {
     alert("Compte supprimé avec succès");
     window.location.href = "/";
   } else {
-    console.error("❌ Erreur lors de la suppression:", response);
+    console.error("Erreur lors de la suppression:", response);
     alert("Erreur : " + (response?.error || "Erreur inconnue"));
   }
 };
