@@ -11,103 +11,100 @@ class AuthController extends EntityController {
         $this->repository = new UserRepository();
     }
     
+    protected function processGetRequest(HttpRequest $request) {
+        // Vérifier si l'utilisateur est connecté
+        if (isset($_SESSION['user_id'])) {
+            $user = $this->repository->find($_SESSION['user_id']);
+            
+            if ($user) {
+                return [
+                    "is_authenticated" => true,
+                    "user" => [
+                        "id" => $user->getId(),
+                        "prenom" => $user->getFirstName(),
+                        "nom" => $user->getLastName(),
+                        "gender" => $user->getGender(),
+                        "email" => $user->getEmail()
+                    ]
+                ];
+            }
+        }
+        
+        return ["is_authenticated" => false];
+    }
+    
     protected function processPostRequest(HttpRequest $request) {
+        // Lire le JSON
         $json = $request->getJson();
         $data = json_decode($json);
         
-        if (empty($data)) {
-            http_response_code(400);
-        }
-
-        if (!$data || !isset($data->email) || !isset($data->password)) {
-            http_response_code(400);
+        if (!$data) {
+            return ["error" => "Données invalides"];
         }
         
-        $email = $data->email;
-        $password = $data->password;
-        
-        $user = $this->repository->findByEmail($email);
-        
-        if (!$user) {
-            http_response_code(401);
+        if (!isset($data->action)) {
+            return ["error" => "Action non spécifiée"];
         }
         
-        // Vérifier le mot de passe
-        if (!password_verify($password, $user->getPassword())) {
-            http_response_code(401);
+        if ($data->action === 'login') {
+            return $this->login($data);
         }
         
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        
-        $_SESSION['user_id'] = $user->getId();
-        $_SESSION['user_email'] = $user->getEmail();
-        $_SESSION['user_firstname'] = $user->getFirstName();
-        $_SESSION['user_lastname'] = $user->getLastName();
-        $_SESSION['user_gender'] = $user->getGender();
-        
-        return [
-            'success' => true,
-            'user' => [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'gender' => $user->getGender(),
-                'nom' => $user->getLastName(),
-                'prenom' => $user->getFirstName()
-            ]
-        ];
-    }
-    
-    protected function processGetRequest(HttpRequest $request) {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        
-        if (!isset($_SESSION['user_id'])) {
-            return [
-                'is_authenticated' => false,
-            ];
-        }
-        
-        $user = $this->repository->find($_SESSION['user_id']);
-        
-        if (!$user) {
-            return [
-                'is_authenticated' => false,
-            ];
-        }
-        
-        return [
-            'is_authenticated' => true,
-            'user' => [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'gender' => $user->getGender(),
-                'nom' => $user->getLastName(),
-                'prenom' => $user->getFirstName()
-            ]
-        ];
+        return ["error" => "Action inconnue"];
     }
     
     protected function processDeleteRequest(HttpRequest $request) {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        // Déconnexion
+        if (isset($_SESSION['user_id'])) {
+            session_destroy();
+            return [
+                "success" => true,
+                "message" => "Déconnexion réussie"
+            ];
         }
         
-        session_destroy();
-        
-        return [
-            'success' => true,
-        ];
-    }
-    
-    protected function processPutRequest(HttpRequest $request) {
-        http_response_code(405);
+        return ["error" => "Aucune session active"];
     }
     
     protected function processPatchRequest(HttpRequest $request) {
-        http_response_code(405);
+        return ["error" => "PATCH non supporté pour auth"];
+    }
+    
+    /**
+     * Connexion
+     */
+    private function login($data) {
+        if (!isset($data->email) || !isset($data->password)) {
+            return ["error" => "Email et mot de passe requis"];
+        }
+        
+        $user = $this->repository->findByEmail($data->email);
+        
+        if (!$user) {
+            return ["error" => "Email ou mot de passe incorrect"];
+        }
+        
+        if (!password_verify($data->password, $user->getPassword())) {
+            return ["error" => "Email ou mot de passe incorrect"];
+        }
+        
+        // Créer la session
+        $_SESSION['user_id'] = $user->getId();
+        $_SESSION['user_email'] = $user->getEmail();
+        $_SESSION['user_nom'] = $user->getFirstName() . ' ' . $user->getLastName();
+        $_SESSION['user_gender'] = $user->getGender();
+        
+        return [
+            "success" => true,
+            "message" => "Connexion réussie",
+            "user" => [
+                "id" => $user->getId(),
+                "prenom" => $user->getFirstName(),
+                "nom" => $user->getLastName(),
+                "gender" => $user->getGender(),
+                "email" => $user->getEmail()
+            ]
+        ];
     }
 }
 ?>
