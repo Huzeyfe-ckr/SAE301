@@ -52,38 +52,64 @@ class UserController extends EntityController {
         return ["error" => "Action non spécifiée"];
     }
 
-protected function processPatchRequest(HttpRequest $request) {
-    
-    if (!isset($_SESSION['user_id'])) {
-        http_response_code(401);
-        return ["error" => "Non authentifié"];
+
+
+    protected function processPatchRequest(HttpRequest $request) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(401);
+            return ["error" => "Non authentifié"];
+        }
+        
+        $userId = $_SESSION['user_id'];
+        
+        $user = $this->users->find($userId);
+        
+        if (!$user) {
+            return ["error" => "Utilisateur introuvable"];
+        }
+
+        // ✅ Lire les données depuis $_GET (query parameters)
+    $data = $_GET;
+        
+    // Modifier les champs reçus
+    if (isset($data['prenom']) && $data['prenom'] !== '') {
+        $user->setFirstName($data['prenom']);
     }
     
-    $userId = $_SESSION['user_id'];
-    $user = $this->users->find($userId);
-    
-    if (!$user) {
-        return ["error" => "Utilisateur introuvable"];
+    if (isset($data['nom']) && $data['nom'] !== '') {
+        $user->setLastName($data['nom']);
     }
-    
-    // Lire les données depuis $_POST (FormData)
-    if (isset($_POST['prenom'])) {
-        $user->setFirstName($_POST['prenom']);
+     // ✅ Ajouter l'email
+    if (isset($data['email']) && $data['email'] !== '') {
+        $existingUser = $this->users->findByEmail($data['email']);
+        if ($existingUser && $existingUser->getId() !== $userId) {
+            return ["error" => "Cet email est déjà utilisé"];
+        }
+        $user->setEmail($data['email']);
     }
-    if (isset($_POST['nom'])) {
-        $user->setLastName($_POST['nom']);
-    }
-    if (isset($_POST['gender'])) {
-        $user->setGender($_POST['gender']);
-    }
+
     
-    $ok = $this->users->update($user);
-    
-    if ($ok) {
+    if (isset($data['gender']) && $data['gender'] !== '') {
+        $user->setGender($data['gender']);
+    }
+        
+        // Sauvegarder dans la BDD
+        $ok = $this->users->update($user);
+        
+        if (!$ok) {
+            return ["error" => "Erreur lors de la mise à jour"];
+        }
+        
         // Mettre à jour la session
         $_SESSION['user_nom'] = $user->getFirstName() . ' ' . $user->getLastName();
-        
-         return [
+        $_SESSION['user_email'] = $user->getEmail();
+        $_SESSION['user_gender'] = $user->getGender();
+        // Retourner les NOUVELLES données
+        return [
             "success" => true,
             "message" => "Profil mis à jour",
             "user" => [
@@ -94,11 +120,15 @@ protected function processPatchRequest(HttpRequest $request) {
                 "email" => $user->getEmail()
             ]
         ];
-    }
-    
-    return ["error" => "Erreur lors de la mise à jour"];
-}
+        
 
+    
+        
+        return ["error" => "Erreur lors de la mise à jour"];
+    }
+
+
+    
 protected function processDeleteRequest(HttpRequest $request) {
     // Vérifier que l'utilisateur est connecté
     if (session_status() === PHP_SESSION_NONE) {

@@ -4,6 +4,8 @@ error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
 
+
+
 // Configuration des cookies de session AVANT tout le reste
 session_set_cookie_params([
     'lifetime' => 0,
@@ -14,11 +16,6 @@ session_set_cookie_params([
     'samesite' => 'None'  // None pour permettre cross-origin
 ]);
 
-
-// ✅ DÉMARRER LA SESSION (c'était manquant !)
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 require_once "src/Controller/ProductController.php";
 require_once "src/Controller/UserController.php";

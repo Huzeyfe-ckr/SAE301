@@ -1,4 +1,12 @@
 <?php
+
+
+
+// ✅ DÉMARRER LA SESSION (c'était manquant !)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once "src/Controller/EntityController.php";
 require_once "src/Repository/UserRepository.php";
 require_once "src/Class/User.php";

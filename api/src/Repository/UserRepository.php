@@ -1,111 +1,12 @@
 <?php
 
-// require_once("src/Repository/EntityRepository.php");
-// require_once("src/Class/User.php");
-
-// class UserRepository extends EntityRepository {
-
-//     public function __construct(){
-//         parent::__construct();
-//     }
-
-//     public function find($id): ?User{
-//         $requete = $this->cnx->prepare("SELECT * FROM User WHERE id=:value");
-//         $requete->bindParam(':value', $id);
-//         $requete->execute();
-//         $answer = $requete->fetch(PDO::FETCH_OBJ);
-        
-//         if ($answer == false) return null;
-        
-//         $u = new User($answer->id);
-//         $u->setFirstName($answer->prenom);      // prenom dans la BDD
-//         $u->setLastName($answer->nom);          // nom dans la BDD
-//         $u->setPseudo($answer->pseudo);
-//         $u->setEmail($answer->email);
-//         $u->setPassword($answer->mot_de_passe); // mot_de_passe dans la BDD
-
-//         return $u;
-//     }
-
-//     public function findAll(): array {
-//         $requete = $this->cnx->prepare("SELECT * FROM User");
-//         $requete->execute();
-//         $answer = $requete->fetchAll(PDO::FETCH_OBJ);
-        
-//         $res = []; // ⚠️ Initialiser le tableau !
-        
-//         foreach($answer as $obj){
-//             $u = new User($obj->id);
-//             $u->setFirstName($obj->prenom);      // prenom dans la BDD
-//             $u->setLastName($obj->nom);          // nom dans la BDD
-//             $u->setPseudo($obj->pseudo);
-//             $u->setEmail($obj->email);
-//             $u->setPassword($obj->mot_de_passe); // mot_de_passe dans la BDD
-            
-//             $res[] = $u; // ⚠️ Ajouter l'utilisateur au tableau !
-//         }
-        
-//         return $res;
-//     }
-
-//     public function save($user): bool {
-//         $requete = $this->cnx->prepare(
-//             "INSERT INTO User (prenom, nom, pseudo, email, mot_de_passe) 
-//              VALUES (:prenom, :nom, :pseudo, :email, :mot_de_passe)"
-//         );
-        
-//         $prenom = $user->getFirstName();
-//         $nom = $user->getLastName();
-//         $pseudo = $user->getPseudo();
-//         $email = $user->getEmail();
-//         $password = $user->getPassword();
-
-//         $requete->bindParam(':prenom', $prenom);
-//         $requete->bindParam(':nom', $nom);
-//         $requete->bindParam(':pseudo', $pseudo);
-//         $requete->bindParam(':email', $email);
-//         $requete->bindParam(':mot_de_passe', $password);
-
-//         return $requete->execute();
-//     }
-
-//     public function delete($id): bool {
-//         $requete = $this->cnx->prepare("DELETE FROM User WHERE id=:id");
-//         $requete->bindParam(':id', $id);
-//         return $requete->execute();
-//     }
-
-//     public function update($user): bool {
-//         $requete = $this->cnx->prepare(
-//             "UPDATE User SET prenom=:prenom, nom=:nom, pseudo=:pseudo, 
-//              email=:email, mot_de_passe=:mot_de_passe WHERE id=:id"
-//         );
-        
-//         $id = $user->getId();
-//         $prenom = $user->getFirstName();
-//         $nom = $user->getLastName();
-//         $pseudo = $user->getPseudo();
-//         $email = $user->getEmail();
-//         $password = $user->getPassword();
-        
-//         $requete->bindParam(':id', $id);
-//         $requete->bindParam(':prenom', $prenom);
-//         $requete->bindParam(':nom', $nom);
-//         $requete->bindParam(':pseudo', $pseudo);
-//         $requete->bindParam(':email', $email);
-//         $requete->bindParam(':mot_de_passe', $password);
-        
-//         return $requete->execute();
-//     }
-// }
-
 require_once("src/Repository/EntityRepository.php");
 require_once("src/Class/User.php");
 
 class UserRepository extends EntityRepository {
 
     public function __construct(){
-        parent::__construct();
+        parent::__construct("User", "User");
     }
 
     public function find($id): ?User{
@@ -182,27 +83,43 @@ class UserRepository extends EntityRepository {
     }
 
     public function update($user): bool {
-        $requete = $this->cnx->prepare(
-            "UPDATE User SET prenom=:prenom, nom=:nom, gender=:gender, 
-             email=:email, mot_de_passe=:mot_de_passe WHERE id=:id"
-        );
-        
-        $id = $user->getId();
-        $prenom = $user->getFirstName();
-        $nom = $user->getLastName();
-        $gender = $user->getGender();
-        $email = $user->getEmail();
-        $password = $user->getPassword();
-        
-        $requete->bindParam(':id', $id);
-        $requete->bindParam(':prenom', $prenom);
-        $requete->bindParam(':nom', $nom);
-        $requete->bindParam(':gender', $gender);
-        $requete->bindParam(':email', $email);
-        $requete->bindParam(':mot_de_passe', $password);
-        
-        return $requete->execute();
+    if (!$user || !$user->getId()) {
+        return false;
     }
+    
+    // ✅ Récupérer les valeurs AVANT le prepare
+    $id = $user->getId();
+    $prenom = $user->getFirstName();
+    $nom = $user->getLastName();
+    $gender = $user->getGender();
+    $email = $user->getEmail();
+    $password = $user->getPassword();
+    
+    error_log("🔄 UPDATE - ID: $id, Prenom: $prenom, Nom: $nom");
+    
+    $sql = "UPDATE User SET prenom=:prenom, nom=:nom, gender=:gender, email=:email, mot_de_passe=:mot_de_passe WHERE id=:id";
+    
+    $requete = $this->cnx->prepare($sql);
+    
+    // ✅ bindValue (pas bindParam)
+    $requete->bindValue(':id', $id, PDO::PARAM_INT);
+    $requete->bindValue(':prenom', $prenom, PDO::PARAM_STR);
+    $requete->bindValue(':nom', $nom, PDO::PARAM_STR);
+    $requete->bindValue(':gender', $gender, PDO::PARAM_STR);
+    $requete->bindValue(':email', $email, PDO::PARAM_STR);
+    $requete->bindValue(':mot_de_passe', $password, PDO::PARAM_STR);
+    
+    // ✅ UN SEUL execute()
+    $result = $requete->execute();
+    
+    if ($result) {
+        error_log("UPDATE OK - Lignes: " . $requete->rowCount());
+    } else {
+        error_log(" UPDATE FAILED: " . print_r($requete->errorInfo(), true));
+    }
+    
+    return $result;
+}
 
     public function findByEmail(string $email): ?User {
         $requete = $this->cnx->prepare("SELECT * FROM User WHERE email=:email");

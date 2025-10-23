@@ -1,14 +1,258 @@
-<div class="mx-auto max-w-4xl p-6">
-  <h1 class="mb-6 text-4xl font-bold text-gray-900">Accueil</h1>
+<div class="bg-gradient-to-b from-blue-l to-white min-h-screen">
   
-<img 
-    src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&h=400&fit=crop" 
-    alt="Image d'accueil - Shopping" 
-    class="mb-6 rounded-lg shadow-lg w-full h-64 object-cover"
-    style="filter: grayscale(1);"
-  />
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative h-[600px] overflow-hidden">
+    <div class="absolute inset-0">
+      <img 
+        src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=1920&h=600&fit=crop" 
+        alt="High-tech moderne" 
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-dark/90 to-blue-mid/70"></div>
+    </div>
 
-  <p>
-    Bienvenue sur notre plateforme de Click & Collect ! Découvrez une sélection variée de produits et profitez d'une expérience d'achat simple et rapide.
-  </p>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 h-full flex items-center">
+      <div class="text-white max-w-2xl">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight text-blue-dark">
+          LD<span class="text-blue">LC</span>
+          <span class="block text-blue">Votre Expert Informatique</span>
+        </h1>
+        <p class="text-xl mb-8 text-blue-l">
+          PC Gaming, composants, smartphones et accessoires high-tech. Commandez en ligne, retirez en magasin gratuitement !
+        </p>
+        <div class="flex gap-4">
+          <a href="/products" data-link
+             class="bg-blue text-blue-dark px-8 py-3 rounded-lg font-semibold hover:bg-blue/90 transition transform hover:scale-105">
+            Nos Produits
+          </a>
+          <a href="/compte" data-link
+             class="bg-white/20 backdrop-blur text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/30 transition border border-white/30">
+            Mon Compte
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AVANTAGES ================= -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-dark">Pourquoi nous choisir ?</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-blue-l rounded-xl p-8 text-center hover:shadow-xl transition transform hover:-translate-y-2">
+          <div class="w-20 h-20 bg-blue-mid rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-blue-dark">Retrait Express</h3>
+          <p class="text-gray">Commandez avant 17h, retirez en magasin dès le lendemain.</p>
+        </div>
+
+        <div class="bg-blue-l rounded-xl p-8 text-center hover:shadow-xl transition transform hover:-translate-y-2">
+          <div class="w-20 h-20 bg-green rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-blue-dark">Garantie Constructeur</h3>
+          <p class="text-gray">Tous nos produits bénéficient d'une garantie officielle.</p>
+        </div>
+
+        <div class="bg-blue-l rounded-xl p-8 text-center hover:shadow-xl transition transform hover:-translate-y-2">
+          <div class="w-20 h-20 bg-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-blue-dark">Gratuit</h3>
+          <p class="text-gray">Retrait gratuit en magasin, sans frais supplémentaires.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATÉGORIES ================= -->
+  <section class="py-16 bg-blue-l">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12 text-blue-dark">Nos Catégories</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <a href="/products" data-link class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop" 
+               alt="PC Portables" class="w-full h-48 object-cover group-hover:scale-110 transition duration-300" />
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-lg text-blue-dark">PC Portables</h3>
+            <p class="text-sm text-gray">Gaming & Pro</p>
+          </div>
+        </a>
+
+        <a href="/products" data-link class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400&h=300&fit=crop" 
+               alt="Composants PC" class="w-full h-48 object-cover group-hover:scale-110 transition duration-300" />
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-lg text-blue-dark">Composants</h3>
+            <p class="text-sm text-gray">CPU, GPU, RAM</p>
+          </div>
+        </a>
+
+        <a href="/products" data-link class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop" 
+               alt="Smartphones" class="w-full h-48 object-cover group-hover:scale-110 transition duration-300" />
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-lg text-blue-dark">Smartphones</h3>
+            <p class="text-sm text-gray">iPhone & Android</p>
+          </div>
+        </a>
+
+        <a href="/products" data-link class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop" 
+               alt="Périphériques" class="w-full h-48 object-cover group-hover:scale-110 transition duration-300" />
+          <div class="p-4 text-center">
+            <h3 class="font-bold text-lg text-blue-dark">Périphériques</h3>
+            <p class="text-sm text-gray">Clavier, Souris</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUITS POPULAIRES ================= -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-between items-center mb-12">
+        <h2 class="text-4xl font-bold text-blue-dark">Meilleures Ventes</h2>
+        <a href="/products" data-link class="text-blue-mid font-semibold hover:text-blue-dark transition">
+          Voir tout →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-blue-l rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=400&h=300&fit=crop" 
+               alt="PC Gaming" class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2 text-blue-dark">PC Gaming RTX 4070</h3>
+            <p class="text-gray text-sm mb-3">i7-13700K • 32GB RAM</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold text-blue-dark">1 499€</span>
+              <a href="/products" data-link class="bg-blue text-blue-dark px-4 py-2 rounded-lg hover:bg-blue/90 transition text-sm font-semibold">
+                Voir
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-l rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop" 
+               alt="MacBook Pro" class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2 text-blue-dark">MacBook Pro M3</h3>
+            <p class="text-gray text-sm mb-3">14" • 16GB • 512GB SSD</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold text-blue-dark">1 999€</span>
+              <a href="/products" data-link class="bg-blue text-blue-dark px-4 py-2 rounded-lg hover:bg-blue/90 transition text-sm font-semibold">
+                Voir
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-l rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1592286927505-c9d2044df0bb?w=400&h=300&fit=crop" 
+               alt="iPhone 15 Pro" class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2 text-blue-dark">iPhone 15 Pro</h3>
+            <p class="text-gray text-sm mb-3">256GB • Titane Naturel</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold text-blue-dark">1 229€</span>
+              <a href="/products" data-link class="bg-blue text-blue-dark px-4 py-2 rounded-lg hover:bg-blue/90 transition text-sm font-semibold">
+                Voir
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-l rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2">
+          <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?w=400&h=300&fit=crop" 
+               alt="RTX 4080" class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-2 text-blue-dark">RTX 4080 SUPER</h3>
+            <p class="text-gray text-sm mb-3">16GB GDDR6X</p>
+            <div class="flex justify-between items-center">
+              <span class="text-2xl font-bold text-blue-dark">1 099€</span>
+              <a href="/products" data-link class="bg-blue text-blue-dark px-4 py-2 rounded-lg hover:bg-blue/90 transition text-sm font-semibold">
+                Voir
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="py-16 bg-gradient-to-r from-blue-dark to-blue-mid text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">Nos Services</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-blue-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Montage PC</h3>
+          <p class="text-blue-l">Configuration sur-mesure et assemblage par nos experts</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Extension Garantie</h3>
+          <p class="text-blue-l">Garantie jusqu'à 3 ans sur tous nos produits</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue rounded-full mx-auto mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Support Technique</h3>
+          <p class="text-blue-l">Assistance 6j/7 par nos techniciens qualifiés</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CALL TO ACTION ================= -->
+  <section class="py-20 bg-blue-l">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-4xl font-bold mb-6 text-blue-dark">Rejoignez-nous !</h2>
+      <p class="text-xl mb-8 text-gray">
+        Créez votre compte et profitez d'offres exclusives, du retrait express et d'un service client premium.
+      </p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="/newcompte" data-link
+           class="bg-blue text-blue-dark px-8 py-3 rounded-lg font-semibold hover:bg-blue/90 transition transform hover:scale-105">
+          Créer un compte
+        </a>
+        <a href="/products" data-link
+           class="bg-blue-mid text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-dark transition">
+          Voir nos produits
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✅ SLOT FOOTER -->
+  <div data-slot="footer"></div>
+
 </div>
