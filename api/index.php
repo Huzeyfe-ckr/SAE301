@@ -20,6 +20,7 @@ session_set_cookie_params([
 require_once "src/Controller/ProductController.php";
 require_once "src/Controller/UserController.php";
 require_once "src/Controller/AuthController.php";
+require_once "src/Controller/OrderController.php";
 require_once "src/Class/HttpRequest.php";
 
 /** IMPORTANT
@@ -47,6 +48,7 @@ $router = [
     "products" => new ProductController(),
     "users" => new UserController(),
     "auth" => new AuthController(),
+    "orders" => new OrderController(),
     
 ];
 
