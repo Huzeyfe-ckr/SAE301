@@ -11,6 +11,7 @@ import { NewComptesPage } from "./pages/newcompte/page.js";
 import { ProfilPage } from "./pages/profil/page.js";
 import { getRequest } from "./lib/api-request.js";
 import { PanierPage } from "./pages/panier/page.js";
+import { ConfirmationPage } from "./pages/confirmation/page.js";
 
 // Créer le router avec loginPath
 const router = new Router('app', {loginPath: '/compte'});
@@ -37,6 +38,7 @@ router.addRoute("/category/:id", ProductsPage);
 router.addRoute("/compte", ComptesPage); // Page de connexion
 router.addRoute("/newcompte", NewComptesPage); // Page d'inscription
 router.addRoute("/panier", PanierPage); // Alias pour la page de panier
+router.addRoute("/confirmation/:id", ConfirmationPage); // Alias pour la page de confirmation
 
 // ✅ Route protégée - nécessite l'authentification
 router.addRoute("/profil", ProfilPage, { requireAuth: true });

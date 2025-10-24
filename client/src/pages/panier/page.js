@@ -2,6 +2,9 @@ import template from "./template.html?raw";
 import { CartData } from '../../data/cart.js';
 import { CartItemView } from '../../ui/cart/item.js';
 import { htmlToFragment } from "../../lib/utils.js";
+import { postRequest } from "../../lib/api-request.js";
+import { UserData } from "../../data/user.js";
+
 
 let M = {
   cartItems: []
@@ -113,11 +116,13 @@ C.attachEventListeners = function() {
   }
   
   const checkoutBtn = document.getElementById('checkout-btn');
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', () => {
-      alert('Fonctionnalité de commande à implémenter');
-    });
-  }
+if (checkoutBtn) {
+  checkoutBtn.addEventListener('click', () => {
+    C.checkout();
+  });
+}
+
+  
 };
 
 C.rerender = function() {
@@ -161,6 +166,54 @@ C.rerender = function() {
   if (subtotalEl) subtotalEl.textContent = total.toFixed(2) + ' €';
   if (totalEl) totalEl.textContent = total.toFixed(2) + ' €';
   if (itemsCountEl) itemsCountEl.textContent = count;
+};
+
+C.checkout = async function() {
+  // Vérifier si l'utilisateur est connecté
+  const user = UserData.get();
+  if (!user || !user.id) {
+    alert('Veuillez vous connecter pour passer commande');
+    window.location.href = '/compte';
+    return;
+  }
+
+  if (M.cartItems.length === 0) {
+    alert('Votre panier est vide');
+    return;
+  }
+
+  // Préparer les données de la commande
+  const orderData = {
+    items: M.cartItems.map(item => ({
+      product_id: item.id,
+      quantity: item.quantity,
+      price: item.price
+    })),
+    total_amount: CartData.getTotal()
+  };
+
+  const checkoutBtn = document.getElementById('checkout-btn');
+  if (checkoutBtn) {
+    checkoutBtn.disabled = true;
+    checkoutBtn.textContent = 'Traitement en cours...';
+  }
+
+  // Envoyer la commande à l'API
+  const order = await postRequest('orders', orderData);
+
+  if (order && order.id) {
+ // Vider le panier
+    CartData.clear();
+    
+    // Rediriger vers la page de confirmation
+    window.location.href = `/confirmation/${order.id}`;
+  } else {
+    alert('Une erreur est survenue lors de la commande. Veuillez réessayer.');
+    if (checkoutBtn) {
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = 'Commander';
+    }
+  }
 };
 
 export async function PanierPage() {

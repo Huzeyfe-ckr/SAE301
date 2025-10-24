@@ -1,0 +1,56 @@
+<div class="bg-blue-l min-h-screen py-12">
+  <div class="max-w-3xl mx-auto px-4">
+    <!-- Confirmation Header -->
+    <div class="bg-white rounded-lg p-8 text-center mb-8">
+      <div class="w-20 h-20 bg-green rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      
+      <h1 class="text-3xl font-bold text-blue-dark mb-4">Commande confirmée !</h1>
+      <p class="text-gray mb-6">Merci pour votre achat. Votre commande a été enregistrée avec succès.</p>
+      
+      <div class="bg-blue-l p-4 rounded-lg inline-block">
+        <p class="text-sm text-gray mb-1">Numéro de commande</p>
+        <p class="text-2xl font-bold text-blue-mid">{{orderNumber}}</p>
+      </div>
+    </div>
+
+    <!-- Détails de la commande -->
+    <div class="bg-white rounded-lg p-8 mb-8">
+      <h2 class="text-xl font-bold text-blue-dark mb-6">Détails de la commande</h2>
+      
+      <div class="space-y-4 mb-6">
+        <div class="flex justify-between">
+          <span class="text-gray">Date de commande</span>
+          <span class="font-semibold">{{createdAt}}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray">Nombre d'articles</span>
+          <span class="font-semibold">{{itemsCount}}</span>
+        </div>
+        <div class="flex justify-between text-lg">
+          <span class="font-bold">Total</span>
+          <span class="font-bold text-blue-mid">{{totalAmount}} €</span>
+        </div>
+      </div>
+
+      <div id="order-items" class="mt-6">
+        <!-- Items injectés ici -->
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a href="/products" data-link 
+         class="flex-1 bg-yellow text-blue-dark text-center py-3 rounded-lg font-semibold hover:bg-yellow/90 transition">
+        Continuer mes achats
+      </a>
+      <a href="/compte" data-link 
+         class="flex-1 bg-blue-mid text-white text-center py-3 rounded-lg font-semibold hover:bg-blue-dark transition">
+        Voir mes commandes
+      </a>
+    </div>
+  </div>
+</div>
