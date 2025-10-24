@@ -15,17 +15,17 @@ let C = {};
 
 let V = {};
 
-// ✅ Ajout du paramètre params pour récupérer l'ID de catégorie
+// Ajout du paramètre params pour récupérer l'ID de catégorie
 C.init = async function (params = {}) {
   const apiProducts = await getRequest("products");
   
   if (apiProducts && Array.isArray(apiProducts) && apiProducts.length > 0) {
     M.products = apiProducts;
   } else {
-    M.products = ProductData.getAll();
+    M.products = await ProductData.fetchAll();
   }
   
-  // ✅ Si params.id existe (route /category/:id), filtrer par catégorie
+  // Si params.id existe (route /category/:id), filtrer par catégorie
   if (params.id) {
     C.filterByCategory(params.id);
   } else {
