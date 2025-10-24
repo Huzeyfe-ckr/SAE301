@@ -67,8 +67,8 @@ V.dom = function () {
     slot.replaceWith(emptyDiv);
     return fragment;
   }
-  
-  // ✅ Utiliser flex au lieu de grid
+
+  // Utiliser flex au lieu de grid
   const productsDiv = document.createElement('div');
   productsDiv.className = 'flex flex-wrap gap-6 w-full max-w-7xl justify-center';
   productsDiv.id = 'products-grid';
@@ -123,7 +123,7 @@ C.attachEventListeners = function () {
   }, 0);
 };
 
-// ✅ ProductsPage doit accepter params en argument
+// ProductsPage doit accepter params en argument
 export async function ProductsPage(params = {}) {
   await C.init(params);
   const dom = V.dom();
