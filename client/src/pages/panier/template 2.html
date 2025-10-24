@@ -1,0 +1,72 @@
+<div class="bg-blue-l min-h-screen py-6 sm:py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <h1 class="text-2xl sm:text-4xl font-bold text-blue-dark mb-6 sm:mb-8">Mon Panier</h1>
+
+    <!-- Message panier vide -->
+    <div id="empty-cart" class="bg-white rounded-lg p-8 sm:p-12 text-center" style="display: none;">
+      <svg class="w-16 h-16 sm:w-24 sm:h-24 mx-auto text-gray mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+      </svg>
+      <h2 class="text-xl sm:text-2xl font-bold text-blue-dark mb-4">Votre panier est vide</h2>
+      <p class="text-gray mb-6 text-sm sm:text-base">Découvrez nos produits et ajoutez-les à votre panier</p>
+      <a href="/products" data-link class="bg-yellow text-blue-dark px-6 py-3 rounded-lg font-semibold hover:bg-yellow/90 transition inline-block">
+        Voir nos produits
+      </a>
+    </div>
+
+    <!-- Contenu du panier -->
+    <div id="cart-content" class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+      
+      <!-- Liste des produits -->
+      <div class="lg:col-span-2">
+        <div class="bg-white rounded-lg shadow-md">
+          <div class="p-4 sm:p-6 border-b border-gray-200">
+            <h2 class="text-lg sm:text-xl font-bold text-blue-dark">Articles (<span id="items-count">0</span>)</h2>
+          </div>
+          
+          <div id="cart-items" class="divide-y divide-gray-200">
+            <!-- Les produits seront injectés ici -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Récapitulatif -->
+      <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 lg:sticky lg:top-4">
+          <h2 class="text-lg sm:text-xl font-bold text-blue-dark mb-4 sm:mb-6">Récapitulatif</h2>
+          
+          <div class="space-y-3 mb-4 sm:mb-6">
+            <div class="flex justify-between text-gray text-sm sm:text-base">
+              <span>Sous-total</span>
+              <span id="subtotal">0,00 €</span>
+            </div>
+            <div class="flex justify-between text-gray text-sm sm:text-base">
+              <span>Livraison</span>
+              <span class="text-green font-semibold">Gratuite</span>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-200 pt-4 mb-4 sm:mb-6">
+            <div class="flex justify-between text-lg sm:text-xl font-bold text-blue-dark">
+              <span>Total</span>
+              <span id="total">0,00 €</span>
+            </div>
+          </div>
+          
+          <button id="checkout-btn" class="w-full bg-yellow text-blue-dark py-3 rounded-lg font-semibold hover:bg-yellow/90 transition mb-4 text-sm sm:text-base">
+            Commander
+          </button>
+          
+          <a href="/products" data-link class="block text-center text-blue-mid hover:text-blue-dark transition text-sm sm:text-base">
+            Continuer mes achats
+          </a>
+          
+          <button id="clear-cart-btn" class="w-full mt-4 text-red hover:text-red/80 transition text-xs sm:text-sm">
+            Vider le panier
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
