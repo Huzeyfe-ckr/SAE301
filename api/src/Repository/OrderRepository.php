@@ -178,7 +178,7 @@ class OrderRepository extends EntityRepository {
         return false;
     }
 
-    public function update($product, $id){
+    public function update($entity){
         // Not implemented ! TODO when needed !
         return false;
     }

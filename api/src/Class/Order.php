@@ -1,64 +1,66 @@
 <?php
 
-require_once require_once ('Entity.php');
 
+require_once "Entity.php";
 
 class Order extends Entity {
-    private ?int $id = null;
-    private ?int $iduser = null;
-    private ?float $totalprice = null;
-    private ?string $status = null;
-    private ?string $createdat = null;
 
-    public function __construct(array $data = []) {
-        parent::__construct($data);
+    private ?int $userId;
+    private ?string $createdAt;
+    private array $items = [];
+    private float $totalAmount = 0;
+
+    public function __construct(?int $id = null) {
+        parent::__construct($id);
+        $this->userId = null;
+        $this->createdAt = null;
     }
 
-    public function jsonSerialize(): mixed {
+    // Getters
+    public function getUserId(): ?int {
+        return $this->userId;
+    }
+
+    public function getCreatedAt(): ?string {
+        return $this->createdAt;
+    }
+
+    public function getItems(): array {
+        return $this->items;
+    }
+
+    public function getTotalAmount(): float {
+        return $this->totalAmount;
+    }
+
+    // Setters
+    public function setUserId(?int $userId): void {
+        $this->userId = $userId;
+    }
+
+    public function setCreatedAt(?string $createdAt): void {
+        $this->createdAt = $createdAt;
+    }
+
+    public function addItem(array $item): void {
+        $this->items[] = $item;
+    }
+
+    public function setTotalAmount(float $amount): void {
+        $this->totalAmount = $amount;
+    }
+
+    public function toArray(): array {
         return [
-            'id' => $this->id,
-            'iduser' => $this->iduser,
-            'totalprice' => $this->totalprice,
-            'status' => $this->status,
-            'createdat' => $this->createdat
+            'id' => $this->getId(),
+            'userId' => $this->userId,
+            'createdAt' => $this->createdAt,
+            'items' => $this->items,
+            'totalAmount' => $this->totalAmount
         ];
     }
 
-    public function getId(): ?int {
-        return $this->id;
+    public function jsonSerialize(): mixed {
+        return $this->toArray();
     }
-    public function getIduser(): ?int {
-        return $this->iduser;
-    }
-    public function setIduser(int $iduser): self {
-        $this->iduser = $iduser;
-        return $this;
-    }
-    public function getTotalprice(): ?float {
-        return $this->totalprice;
-    }
-    public function setTotalprice(float $totalprice): self {
-        $this->totalprice = $totalprice;
-        return $this;
-    }
-    public function getStatus(): ?string {
-        return $this->status;
-    }
-    public function setStatus(string $status): self {
-        $this->status = $status;
-        return $this;
-    }
-    public function getCreatedat(): ?string {
-        return $this->createdat;
-    }
-    public function setCreatedat(string $createdat): self {
-        $this->createdat = $createdat;
-        return $this;
-    }
-}   
-  
-
-
-
-
-?>
+}
