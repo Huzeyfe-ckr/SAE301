@@ -5,7 +5,12 @@ error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
 // En-têtes CORS - À placer TOUT AU DÉBUT
-header("Access-Control-Allow-Origin: http://localhost:5174");
+// Autoriser localhost sur différents ports (dev)
+$allowedOrigins = ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowedOrigins)) {
+    header("Access-Control-Allow-Origin: $origin");
+}
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");

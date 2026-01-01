@@ -1,6 +1,8 @@
 # CORS headers - Must be here for OPTIONS preflight requests
 <IfModule mod_headers.c>
-  Header always set Access-Control-Allow-Origin "http://localhost:5174"
+  # Autoriser plusieurs ports de développement localhost
+  SetEnvIf Origin "http://localhost:(5173|5174|5175)" ORIGIN_ALLOWED=$0
+  Header always set Access-Control-Allow-Origin "%{ORIGIN_ALLOWED}e" env=ORIGIN_ALLOWED
   Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS, PATCH"
   Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
   Header always set Access-Control-Allow-Credentials "true"
