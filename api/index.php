@@ -5,12 +5,30 @@ error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
 // En-têtes CORS - À placer TOUT AU DÉBUT
-// Autoriser localhost sur différents ports (dev)
-$allowedOrigins = ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'];
+// Autoriser localhost sur différents ports (dev) et la production
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$allowedOrigins = ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'];
+$isAllowed = false;
+
+// Vérifier localhost avec n'importe quel port
+if (preg_match('/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/', $origin)) {
+    $isAllowed = true;
+}
+
+// Vérifier les ports localhost spécifiques
 if (in_array($origin, $allowedOrigins)) {
+    $isAllowed = true;
+}
+
+// Autoriser mmi.unilim.fr et ses sous-domaines
+if (strpos($origin, 'mmi.unilim.fr') !== false) {
+    $isAllowed = true;
+}
+
+if ($isAllowed) {
     header("Access-Control-Allow-Origin: $origin");
 }
+
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
@@ -30,6 +48,9 @@ session_set_cookie_params([
     'httponly' => true,
     'samesite' => 'None'
 ]);
+
+// Démarrer la session
+session_start();
 
 require_once "src/Controller/ProductController.php";
 require_once "src/Controller/UserController.php";
