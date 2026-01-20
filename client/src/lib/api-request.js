@@ -3,8 +3,7 @@
  *  C'est ici : https://fr.javascript.info/fetch
  */
 
-
-let API_URL = "https://mmi.unilim.fr/~cakir4/api/";
+import { API_URL } from '../config/api.js';
 
 
 /**
