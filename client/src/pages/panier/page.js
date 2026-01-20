@@ -4,6 +4,7 @@ import { CartItemView } from '../../ui/cart/item.js';
 import { htmlToFragment } from "../../lib/utils.js";
 import { postRequest } from "../../lib/api-request.js";
 import { UserData } from "../../data/user.js";
+import { router } from "../../main.js";
 
 
 let M = {
@@ -173,7 +174,7 @@ C.checkout = async function() {
   const user = UserData.get();
   if (!user || !user.id) {
     alert('Veuillez vous connecter pour passer commande');
-    window.location.href = '/compte';
+    router.navigate('/SAE301/compte');
     return;
   }
 
@@ -206,7 +207,7 @@ C.checkout = async function() {
     CartData.clear();
     
     // Rediriger vers la page de confirmation
-    window.location.href = `/confirmation/${order.id}`;
+    router.navigate(`/SAE301/confirmation/${order.id}`);
   } else {
     alert('Une erreur est survenue lors de la commande. Veuillez réessayer.');
     if (checkoutBtn) {

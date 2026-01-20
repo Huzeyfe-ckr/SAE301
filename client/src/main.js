@@ -14,7 +14,7 @@ import { PanierPage } from "./pages/panier/page.js";
 import { ConfirmationPage } from "./pages/confirmation/page.js";
 
 // Créer le router avec loginPath
-const router = new Router('app', {loginPath: '/compte'});
+const router = new Router('app', {loginPath: '/SAE301/compte'});
 
 // Fonction pour mettre à jour le statut d'auth
 async function updateAuthStatus() {
@@ -27,21 +27,21 @@ async function updateAuthStatus() {
 }
 
 // Ajouter le layout principal
-router.addLayout("/", RootLayout);
+router.addLayout("/SAE301/", RootLayout);
 
 // Routes publiques
-router.addRoute("/", HomePage);
-router.addRoute("/about", AboutPage);
-router.addRoute("/products", ProductsPage);
-router.addRoute("/products/:id/:slug", ProductDetailPage);
-router.addRoute("/category/:id", ProductsPage);
-router.addRoute("/compte", ComptesPage); // Page de connexion
-router.addRoute("/newcompte", NewComptesPage); // Page d'inscription
-router.addRoute("/panier", PanierPage); // Alias pour la page de panier
-router.addRoute("/confirmation/:id", ConfirmationPage); // Alias pour la page de confirmation
+router.addRoute("/SAE301/", HomePage);
+router.addRoute("/SAE301/about", AboutPage);
+router.addRoute("/SAE301/products", ProductsPage);
+router.addRoute("/SAE301/products/:id/:slug", ProductDetailPage);
+router.addRoute("/SAE301/category/:id", ProductsPage);
+router.addRoute("/SAE301/compte", ComptesPage); // Page de connexion
+router.addRoute("/SAE301/newcompte", NewComptesPage); // Page d'inscription
+router.addRoute("/SAE301/panier", PanierPage); // Alias pour la page de panier
+router.addRoute("/SAE301/confirmation/:id", ConfirmationPage); // Alias pour la page de confirmation
 
 // ✅ Route protégée - nécessite l'authentification
-router.addRoute("/profil", ProfilPage, { requireAuth: true });
+router.addRoute("/SAE301/profil", ProfilPage, { requireAuth: true });
 
 // Route 404
 router.addRoute("*", The404Page);

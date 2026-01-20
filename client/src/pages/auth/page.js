@@ -1,6 +1,7 @@
 import { htmlToFragment } from "../../lib/utils.js";
 import template from "./template.html?raw";
 import { getRequest, jsonPostRequest } from "../../lib/api-request.js";
+import { router } from "../../main.js";
 
 let M = {
     user: null
@@ -16,7 +17,7 @@ C.handler_logout = async function(ev) {
         
         if (result && result.success) {
             alert('Déconnexion réussie');
-            window.location.href = '/compte';
+            router.navigate('/SAE301/compte');
         } else {
             alert('Erreur lors de la déconnexion');
         }
@@ -36,7 +37,7 @@ C.init = async function() {
         const authData = await getRequest('auth');
         
         if (!authData || !authData.is_authenticated) {
-            window.location.href = '/compte';
+            router.navigate('/SAE301/compte');
             return '<div>Redirection...</div>';
         }
         
@@ -44,7 +45,7 @@ C.init = async function() {
         return V.init(M.user);
         
     } catch (error) {
-         window.location.href = '/compte';
+         router.navigate('/SAE301/compte');
         return '<div>Erreur de chargement...</div>';
     }
 };

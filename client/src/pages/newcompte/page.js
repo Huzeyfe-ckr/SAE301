@@ -1,6 +1,7 @@
 import { htmlToFragment } from "../../lib/utils.js";
 import template from "./template.html?raw";
 import { jsonPostRequest } from "../../lib/api-request.js";
+import { router } from "../../main.js";
 
 let C = {};
 
@@ -32,7 +33,7 @@ C.handler_submitForm = async function(ev) {
     if (result && result.success) {
         console.log("✅ Inscription réussie");
         alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
-        window.location.href = '/compte';
+        router.navigate('/SAE301/compte');
         
     } else {
         alert(result.error || 'Erreur lors de l\'inscription');

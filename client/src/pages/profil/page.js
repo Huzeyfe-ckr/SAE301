@@ -6,6 +6,7 @@ import {
   deleteRequest,
 } from "../../lib/api-request.js";
 import template from "./template.html?raw";
+import { router } from "../../main.js";
 
 let M = {
   user: null,
@@ -143,7 +144,7 @@ C.handler_deleteAccount = async function (ev) {
 
   if (response && response.success) {
     alert("Compte supprimé avec succès");
-    window.location.href = "/";
+    router.navigate("/SAE301/");
   } else {
     console.error("Erreur lors de la suppression:", response);
     alert("Erreur : " + (response?.error || "Erreur inconnue"));
@@ -163,7 +164,7 @@ C.handler_logout = async function (ev) {
     alert("Déconnexion réussie");
 
     // Rediriger vers la page de connexion
-    window.location.href = "/compte";
+    router.navigate("/SAE301/compte");
   } else {
     alert("Erreur lors de la déconnexion");
   }

@@ -1,6 +1,7 @@
 import template from "./template.html?raw";
 import { getRequest } from "../../lib/api-request.js";
 import { htmlToFragment, genericRenderer } from "../../lib/utils.js";
+import { router } from "../../main.js";
 
 let M = {
   order: null
@@ -11,15 +12,15 @@ let C = {};
 let V = {};
 
 C.init = async function(params) {
-  if (!params.orderId) {
-    window.location.href = "/";
+  if (!params.id) {
+    router.navigate("/SAE301/");
     return;
   }
 
-  M.order = await getRequest(`orders/${params.orderId}`);
+  M.order = await getRequest(`orders/${params.id}`);
   
   if (!M.order) {
-    window.location.href = "/";
+    router.navigate("/SAE301/");
   }
 };
 
@@ -54,7 +55,7 @@ V.dom = function() {
 };
 
 V.renderItem = function(item) {
-  const image = item.product_image || '';
+  const image = item.product_image ? `/SAE301/assets/${item.product_image}` : '';
   return `
     <div class="flex items-center gap-4 py-4 border-b border-gray-200">
       <img src="${image}" alt="${item.product_name}" class="w-16 h-16 object-contain" />

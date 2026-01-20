@@ -21,12 +21,12 @@ let ImageGaleryView = {
         if (data.images && data.images.length > 0) {
             data.images.forEach((img, index) => {
                 const thumb = document.createElement('img');
-                thumb.src = `/assets/${img}`;
+                thumb.src = `/SAE301/assets/${img}`;
                 thumb.alt = `Miniature ${index + 1}`;
                 
                 // Gérer le clic sur la miniature
                 thumb.onclick = () => {
-                    mainImage.src = `/assets/${img}`;
+                    mainImage.src = `/SAE301/assets/${img}`;
                     // Retirer la classe active de toutes les miniatures
                     thumbnailsContainer.querySelectorAll('img').forEach(t => 
                         t.classList.remove('active')

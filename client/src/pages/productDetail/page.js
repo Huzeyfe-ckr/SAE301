@@ -71,7 +71,7 @@ C.attachEventListeners = function () {
       thumb.addEventListener('click', () => {
         const mainImage = document.getElementById('main-image');
         if (mainImage && M.product.images && M.product.images[index]) {
-          mainImage.src = M.product.images[index];
+          mainImage.src = `/SAE301/assets/${M.product.images[index]}`;
         }
         
         document.querySelectorAll('[data-gallery-thumb]').forEach(t => {

@@ -8,9 +8,9 @@ let DetailView = {
     let imageUrl = "https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Pas+d'image";
     
     if (data.images && Array.isArray(data.images) && data.images.length > 0) {
-      imageUrl = data.images[0];
+      imageUrl = `/SAE301/assets/${data.images[0]}`;
     } else if (data.image) {
-      imageUrl = data.image;
+      imageUrl = `/SAE301/assets/${data.image}`;
     }
 
     const detailData = {

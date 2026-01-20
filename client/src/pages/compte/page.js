@@ -1,7 +1,7 @@
 import { htmlToFragment } from "../../lib/utils.js";
 import template from "./template.html?raw";
 import { jsonPostRequest } from "../../lib/api-request.js";
-import { updateAuthStatus } from "../../main.js";
+import { updateAuthStatus, router } from "../../main.js";
 
 let C = {};
 
@@ -36,7 +36,7 @@ C.handler_submitLogin = async function(ev) {
         await updateAuthStatus();
 
         alert('Connexion réussie ! Bienvenue ' + response.user.prenom);
-        window.location.href = '/profil';
+        router.navigate('/SAE301/profil');
         
     } else {
         alert(response.error || 'Email ou mot de passe incorrect');
